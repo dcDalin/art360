@@ -1,16 +1,22 @@
+import { NhostClient, NhostNextProvider } from '@nhost/nextjs';
+import { NhostApolloProvider } from '@nhost/react-apollo';
 import { AppProps } from 'next/app';
 
 import '@/styles/globals.css';
-// !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
-import '@/styles/colors.css';
 
-/**
- * !STARTERCONF info
- * ? `Layout` component is called in every page using `np` snippets. If you have consistent layout across all page, you can add it here too
- */
+const nhost = new NhostClient({
+  subdomain: process.env.NEXT_PUBLIC_NHOST_SUBDOMAIN || 'hqgvidhnlbykeqlgeglh',
+  region: process.env.NEXT_PUBLIC_NHOST_REGION || 'eu-central-1',
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <NhostNextProvider nhost={nhost} initial={pageProps.nhostSession}>
+      <NhostApolloProvider nhost={nhost}>
+        <Component {...pageProps} />
+      </NhostApolloProvider>
+    </NhostNextProvider>
+  );
 }
 
 export default MyApp;
