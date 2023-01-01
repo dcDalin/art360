@@ -9,3 +9,16 @@ export const FETCH_TEST = gql`
     }
   }
 `;
+
+export const READ_ALL_SPONSORS = gql`
+  query ReadAllSponsors {
+    sponsors {
+      created_at
+      description
+      id
+      imageId
+      title
+      url
+    }
+  }
+`;

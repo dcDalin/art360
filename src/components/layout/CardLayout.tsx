@@ -1,7 +1,9 @@
+import { useRouter } from 'next/router';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 
-import AppLogo from '@/components/AppLogo';
+import useRedirectTo from '@/hooks/useRedirectTo';
 
+import AppLogo from '@/components/AppLogo';
 interface ICardLayoutProps {
   children: React.ReactNode;
   title?: string;
@@ -13,13 +15,18 @@ export default function CardLayout({
   title,
   footerText,
 }: ICardLayoutProps) {
+  const redirectTo = useRedirectTo();
+  const router = useRouter();
   return (
     <div className='flex min-h-screen w-full flex-col items-center justify-between'>
       <div className='flex w-full justify-center'>
         <div className='card mt-1 w-full bg-base-100 shadow-xl md:mt-10 md:w-2/3 lg:w-1/3'>
           <div className='card-body'>
             <div className='grid grid-cols-3 items-center'>
-              <button className='btn-outline btn-sm btn-circle btn'>
+              <button
+                className='btn-outline btn btn-sm btn-circle'
+                onClick={() => router.push(redirectTo)}
+              >
                 <MdOutlineKeyboardBackspace className='text-2xl' />
               </button>
 

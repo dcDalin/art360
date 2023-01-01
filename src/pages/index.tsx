@@ -6,9 +6,10 @@ import Layout from '@/components/layout/Layout';
 import { FETCH_TEST } from '@/graphql/queries';
 
 export default function HomePage() {
-  const { data, loading } = useQuery(FETCH_TEST);
+  const { data, loading, error } = useQuery(FETCH_TEST);
 
   if (loading) return <p>Loading...</p>;
+  if (error) return <p>{JSON.stringify(error)}</p>;
   return (
     <Layout templateTitle='Home'>
       <main>hello world</main>

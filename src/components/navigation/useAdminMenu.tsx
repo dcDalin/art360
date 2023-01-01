@@ -2,7 +2,11 @@ import { AiFillDashboard } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
 import { SiGithubsponsors } from 'react-icons/si';
 
-import { ADMIN_DASHBOARD, ADMIN_SETTINGS } from '@/routes/paths';
+import {
+  ADMIN_DASHBOARD,
+  ADMIN_SETTINGS,
+  ADMIN_SPONSORS,
+} from '@/routes/paths';
 
 export default function useAdminMenu() {
   const adminMenuItems = [
@@ -14,7 +18,7 @@ export default function useAdminMenu() {
     {
       title: 'Sponsors',
       icon: <SiGithubsponsors />,
-      path: ADMIN_SETTINGS,
+      path: ADMIN_SPONSORS,
     },
     {
       title: 'Settings',

@@ -9,11 +9,13 @@ const nextConfig = {
   swcMinify: true,
 
   // Uncoment to add domain whitelist
-  // images: {
-  //   domains: [
-  //     'res.cloudinary.com',
-  //   ],
-  // },
+  images: {
+    domains: [
+      's.gravatar.com',
+      'lh3.googleusercontent.com',
+      'hqgvidhnlbykeqlgeglh.storage.eu-central-1.nhost.run',
+    ],
+  },
 
   // SVGR
   webpack(config) {

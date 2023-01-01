@@ -4,6 +4,8 @@ import AppLogo from '@/components/AppLogo';
 import ContainerLayout from '@/components/layout/ContainerLayout';
 import TopBannerMessage from '@/components/navigation/TopBannerMessage';
 import TopSearch from '@/components/navigation/TopSearch';
+import UserDropDown from '@/components/navigation/UserDropDown';
+
 export default function TopNav() {
   return (
     <>
@@ -25,29 +27,7 @@ export default function TopNav() {
                 </li>
               </ul>
 
-              <div className='dropdown-end dropdown'>
-                <label tabIndex={0} className='btn-ghost btn gap-2'>
-                  <VscAccount />
-                  Account
-                </label>
-                <ul
-                  tabIndex={0}
-                  className='dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow'
-                >
-                  <li>
-                    <a className='justify-between'>
-                      Profile
-                      <span className='badge'>New</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>Settings</a>
-                  </li>
-                  <li>
-                    <a>Logout</a>
-                  </li>
-                </ul>
-              </div>
+              <UserDropDown />
             </div>
           </div>
         </ContainerLayout>
