@@ -1,21 +1,30 @@
 import { useMutation } from '@apollo/client';
-import { useAccessToken, useFileUpload } from '@nhost/react';
-import { useContext } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useAccessToken } from '@nhost/react';
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useFormState,
+} from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import { FaRegImage } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+
+import nhost from '@/lib/nhost';
 
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
-import UploadImage from '@/components/forms/UploadImage';
+import NextImage from '@/components/NextImage';
 
-import {
-  ImageUploadContext,
-  UploadImageContextType,
-} from '@/context/ImageUploadContext';
-import { INSERT_SPONSOR } from '@/graphql/mutations';
+import { UPDATE_ADMIN_SPONSORS_IMAGE_MODAL } from '@/constants/modalNames';
+import { UPDATE_SPONSOR_DATA } from '@/graphql/mutations';
 import { READ_ALL_SPONSORS } from '@/graphql/queries';
-import { closeModals } from '@/redux/modals/adminCRUDModalSlice';
+import {
+  closeModals,
+  openAdminCRUDModal,
+} from '@/redux/modals/adminCRUDModalSlice';
+import { RootState } from '@/redux/store';
 import urlRegex from '@/utils/urlRegex';
 
 type FormValues = {
@@ -24,23 +33,38 @@ type FormValues = {
   url: string;
 };
 
-export default function CreateSponsorProvider() {
+export default function UpdateSponsorProvider() {
   const dispatch = useDispatch();
   const accessToken = useAccessToken();
 
-  const { image } = useContext(ImageUploadContext) as UploadImageContextType;
+  const {
+    adminModalPayload: {
+      formData: { id, imageId, url, title, description },
+    },
+  } = useSelector((state: RootState) => state.adminCRUDModal);
 
-  const { upload, isUploading } = useFileUpload();
+  const imageUrl = nhost.storage.getPublicUrl({
+    fileId: imageId,
+  });
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
+    defaultValues: {
+      title,
+      description,
+      url,
+    },
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, control } = methods;
 
-  const [insertSponsor, { loading, data, error }] = useMutation(
-    INSERT_SPONSOR,
+  const { isDirty } = useFormState({
+    control,
+  });
+
+  const [updateSponsor, { loading, data, error }] = useMutation(
+    UPDATE_SPONSOR_DATA,
     {
       refetchQueries: [
         { query: READ_ALL_SPONSORS }, // DocumentNode object parsed with gql
@@ -51,50 +75,62 @@ export default function CreateSponsorProvider() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      if (image && image[0] && image[0].file) {
-        const { file } = image[0];
-        const { id, isUploaded, isError } = await upload({ file });
+      const { title, url, description } = data;
 
-        if (isError) {
-          toast.error('Something went wrong while uploading the image', {
-            id: 'isError',
-          });
-        } else if (isUploaded) {
-          // submit rest of the form
-
-          const { title, url, description } = data;
-
-          await insertSponsor({
-            context: {
-              headers: {
-                authorization: `Bearer ${accessToken}`,
-              },
-            },
-            variables: { description, imageId: id, title, url },
-          });
-        }
-      } else {
-        toast.error('No image file found', { id: 'error-no-image' });
-      }
+      await updateSponsor({
+        context: {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        },
+        variables: { description, id, title, url },
+      });
     } catch (error) {
       toast.error('Something went wrong, please try again', { id: 'error' });
     }
   };
 
   if (data) {
-    toast.success('Sponsor added', { id: 'data' });
+    toast.success('Sponsor updated', { id: 'data' });
     dispatch(closeModals());
   }
 
   if (error) {
-    toast.error('Could not submit form');
+    toast.error('Could not submit form', { id: 'nhost-error' });
   }
 
   return (
     <div className='flex flex-col justify-between space-x-0 md:flex-row md:space-x-4'>
-      <div className='w-full'>
-        <UploadImage />
-        {!image ? <p>No image</p> : ''}
+      <div className='flex w-full flex-col space-y-4'>
+        <button
+          className='btn-outline btn gap-2'
+          onClick={() =>
+            dispatch(
+              openAdminCRUDModal({
+                adminModalToOpen: UPDATE_ADMIN_SPONSORS_IMAGE_MODAL,
+                formData: { description, id, title, url, imageId },
+              })
+            )
+          }
+        >
+          Update image
+          <FaRegImage />
+        </button>
+        <div className='indicator'>
+          <span className='badge-primary badge indicator-item'>
+            <AiTwotoneEdit />
+          </span>
+          <div className=''>
+            <NextImage
+              src={imageUrl}
+              imgClassName='object-cover'
+              useSkeleton
+              alt='sponsor'
+              width={200}
+              height={200}
+            />
+          </div>
+        </div>
       </div>
 
       <div className='w-full'>
@@ -143,9 +179,9 @@ export default function CreateSponsorProvider() {
             />
 
             <button
-              disabled={loading || isUploading}
+              disabled={loading || !isDirty}
               className={`btn-primary btn-block btn my-6 ${
-                loading || isUploading ? 'loading' : null
+                loading ? 'loading' : null
               }`}
               type='submit'
             >

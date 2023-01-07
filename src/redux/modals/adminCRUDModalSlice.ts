@@ -1,26 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface IAdminModalPayload {
+  adminModalToOpen: string | null;
+  formData: any;
+}
 export interface ModalState {
   isAdminCRUDModalOpen: boolean;
-  adminModalToOpen: string | null;
+  adminModalPayload: IAdminModalPayload;
 }
 
 const initialState: ModalState = {
   isAdminCRUDModalOpen: false,
-  adminModalToOpen: null,
+  adminModalPayload: {
+    adminModalToOpen: null,
+    formData: {},
+  },
 };
 
 export const adminCRUDModalSlice = createSlice({
   name: 'adminCRUDModal',
   initialState,
   reducers: {
-    openAdminCRUDModal: (state: ModalState, action: PayloadAction<string>) => {
+    openAdminCRUDModal: (
+      state: ModalState,
+      action: PayloadAction<IAdminModalPayload>
+    ) => {
       state.isAdminCRUDModalOpen = true;
-      state.adminModalToOpen = action.payload;
+      state.adminModalPayload = action.payload;
     },
     closeModals: (state: ModalState) => {
       state.isAdminCRUDModalOpen = false;
-      state.adminModalToOpen = null;
+      state.adminModalPayload = {
+        adminModalToOpen: null,
+        formData: {},
+      };
     },
   },
 });

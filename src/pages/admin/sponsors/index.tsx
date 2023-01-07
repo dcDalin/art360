@@ -14,7 +14,12 @@ function SponsorsPage() {
     <AdminLayout templateTitle='Sponsors'>
       <AdminCrudLayout
         handleClick={() =>
-          dispatch(openAdminCRUDModal(CREATE_ADMIN_SPONSORS_MODAL))
+          dispatch(
+            openAdminCRUDModal({
+              adminModalToOpen: CREATE_ADMIN_SPONSORS_MODAL,
+              formData: {},
+            })
+          )
         }
         title='Sponsors'
       >

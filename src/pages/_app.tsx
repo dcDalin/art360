@@ -7,8 +7,9 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 
-import '@/styles/globals.css';
 import '@/styles/nprogress.css';
+// global styles
+import '@/styles/globals.css';
 
 import nhost from '@/lib/nhost';
 

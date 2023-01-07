@@ -13,7 +13,7 @@ const withAdminAuthenticated: withAdminAuthenticatedFn = (Component) => {
 
     const router = useRouter();
 
-    if (isLoading) return <></>;
+    if (isLoading) return <>Loading...</>;
 
     if (isAuthenticated && userData?.roles.includes('staff')) {
       return <Component {...props} />;
