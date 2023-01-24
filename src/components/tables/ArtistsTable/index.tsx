@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
@@ -28,7 +29,7 @@ export default function ArtistsTable() {
       {
         Header: 'ID',
         accessor: 'id',
-        Cell: ({ row }) => {
+        Cell: ({ row }: any) => {
           const imageUrl = nhost.storage.getPublicUrl({
             fileId: row.original.imageId,
           });
