@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client';
 import { useAccessToken, useFileUpload } from '@nhost/react';
-import router from 'next/router';
 import { useContext } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -15,7 +14,6 @@ import {
 } from '@/context/ImageUploadContext';
 import { INSERT_ARTISTS_ONE } from '@/graphql/artists/mutations';
 import { READ_ARTISTS } from '@/graphql/artists/queries';
-import { ADMIN_ARTISTS } from '@/routes/paths';
 
 type FormValues = {
   firstName: string;
@@ -69,7 +67,7 @@ export default function CreateArtistProvider() {
             variables: { bio, firstName, lastName, nickName, imageId: id },
           });
           toast.success(`${nickName} has been added`, { id: 'artist-success' });
-          router.replace(ADMIN_ARTISTS, undefined, { shallow: true });
+          // router.replace(ADMIN_ARTISTS, undefined, { shallow: true });
         }
       } else {
         toast.error('No image file found', { id: 'error-no-image' });
