@@ -1,8 +1,10 @@
 import { AiFillDashboard } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
+import { MdDraw } from 'react-icons/md';
 import { SiGithubsponsors } from 'react-icons/si';
 
 import {
+  ADMIN_ARTISTS,
   ADMIN_DASHBOARD,
   ADMIN_SETTINGS,
   ADMIN_SPONSORS,
@@ -14,6 +16,11 @@ export default function useAdminMenu() {
       title: 'Dashboard',
       icon: <AiFillDashboard />,
       path: ADMIN_DASHBOARD,
+    },
+    {
+      title: 'Artists',
+      icon: <MdDraw />,
+      path: ADMIN_ARTISTS,
     },
     {
       title: 'Sponsors',

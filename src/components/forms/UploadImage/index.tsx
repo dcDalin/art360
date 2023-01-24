@@ -9,7 +9,13 @@ import {
   UploadImageContextType,
 } from '@/context/ImageUploadContext';
 
-export default function UploadImage() {
+interface IUploadImageProps {
+  title?: string;
+}
+
+export default function UploadImage({
+  title = 'Click to upload picture',
+}: IUploadImageProps) {
   const { image, handleImageUpload } = useContext(
     ImageUploadContext
   ) as UploadImageContextType;
@@ -57,8 +63,8 @@ export default function UploadImage() {
                     <Image
                       src={image['data_url']}
                       alt='Picture of the author'
-                      width={500}
-                      height={500}
+                      width={100}
+                      height={100}
                     />
                   </div>
                 ))}
@@ -69,7 +75,7 @@ export default function UploadImage() {
                 onClick={onImageUpload}
                 {...dragProps}
               >
-                Click to upload picture
+                {title}
                 <FaRegImage />
               </button>
             )}

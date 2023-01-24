@@ -3,7 +3,7 @@ import * as React from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { ImSpinner2 } from 'react-icons/im';
 
-export type FileInputProps = {
+export type InputProps = {
   autocomplete?: string;
   /** Input label */
   label: string;
@@ -40,7 +40,7 @@ export default function FileInput({
   hideError = false,
   validation,
   ...rest
-}: FileInputProps) {
+}: InputProps) {
   const {
     register,
     formState: { errors },
@@ -66,8 +66,8 @@ export default function FileInput({
         aria-describedby={id}
         autoComplete={autocomplete}
         className={clsx(
-          'input w-full',
-          errors[id] ? 'input-error' : 'input-bordered'
+          'file-input w-full',
+          errors[id] ? 'file-input-error' : 'file-input-bordered'
         )}
         disabled={readOnly}
       />

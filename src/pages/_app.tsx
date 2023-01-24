@@ -1,19 +1,14 @@
 import { NhostNextProvider } from '@nhost/nextjs';
 import { NhostApolloProvider } from '@nhost/react-apollo';
 import { AppProps } from 'next/app';
-import Router from 'next/router';
-import nProgress from 'nprogress';
-import { useEffect } from 'react';
+import NextNProgress from 'nextjs-progressbar';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 
-import '@/styles/nprogress.css';
 // global styles
 import '@/styles/globals.css';
 
 import nhost from '@/lib/nhost';
-
-import AdminCRUDModal from '@/components/modals/AdminCRUDModal';
 
 import ImageUploadProvider from '@/context/ImageUploadContext';
 import { wrapper } from '@/redux/store';
@@ -21,19 +16,14 @@ import { wrapper } from '@/redux/store';
 function MyApp({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
-  useEffect(() => {
-    Router.events.on('routeChangeStart', nProgress.start);
-    Router.events.on('routeChangeError', nProgress.done);
-    Router.events.on('routeChangeComplete', nProgress.done);
-  }, []);
   return (
     <Provider store={store}>
       <NhostNextProvider nhost={nhost} initial={props.pageProps.nhostSession}>
         <NhostApolloProvider nhost={nhost}>
           <ImageUploadProvider>
+            <NextNProgress />
             <Component {...props.pageProps} />
             <Toaster />
-            <AdminCRUDModal />
           </ImageUploadProvider>
         </NhostApolloProvider>
       </NhostNextProvider>

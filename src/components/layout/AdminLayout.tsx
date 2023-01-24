@@ -1,4 +1,3 @@
-import ContainerLayout from '@/components/layout/ContainerLayout';
 import AdminMenuItem from '@/components/navigation/AdminMenuItem';
 import AdminTopNav from '@/components/navigation/AdminTopNav';
 import Seo from '@/components/Seo';
@@ -15,16 +14,15 @@ export default function AdminLayout({
   return (
     <>
       <Seo templateTitle={templateTitle} />
-      <ContainerLayout>
-        <div className='flex'>
-          <AdminMenuItem />
-          <div className='w-full px-1 md:px-4'>
-            <AdminTopNav />
-            <div className='divider m-0'></div>
-            {children}
-          </div>
+
+      <div className='flex'>
+        <AdminMenuItem />
+        <div className='min-h-screen w-full bg-gray-50 px-1 md:px-4'>
+          <AdminTopNav />
+          <div className='divider m-0'></div>
+          {children}
         </div>
-      </ContainerLayout>
+      </div>
     </>
   );
 }

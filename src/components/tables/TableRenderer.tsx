@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useTable } from 'react-table';
+import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 
 interface ITableRenderProps {
   columns: any;
@@ -13,7 +13,7 @@ export default function TableRenderer({
   tableHooks,
 }: ITableRenderProps) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, tableHooks);
+    useTable({ columns, data }, useGlobalFilter, tableHooks, useSortBy);
 
   return (
     <div className='w-full overflow-x-auto'>
