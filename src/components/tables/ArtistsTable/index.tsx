@@ -72,7 +72,7 @@ export default function ArtistsTable() {
       {
         Header: 'Bio',
         accessor: 'bio',
-        Cell: ({ value }) => (
+        Cell: ({ value }: any) => (
           <p className='w-20 overflow-hidden text-ellipsis md:w-40'>{value}</p>
         ),
       },
@@ -85,7 +85,7 @@ export default function ArtistsTable() {
       {
         id: 'EditDelete',
         Header: '',
-        Cell: ({ row }) => (
+        Cell: ({ row }: any) => (
           <div className='flex space-x-2'>
             <div className='tooltip' data-tip='Edit'>
               <AlterButton
