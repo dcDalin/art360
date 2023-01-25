@@ -5,6 +5,7 @@ import { SiGithubsponsors } from 'react-icons/si';
 
 import {
   ADMIN_ARTISTS,
+  ADMIN_ARTISTS_GENRES,
   ADMIN_DASHBOARD,
   ADMIN_SETTINGS,
   ADMIN_SPONSORS,
@@ -16,6 +17,11 @@ export default function useAdminMenu() {
       title: 'Dashboard',
       icon: <AiFillDashboard />,
       path: ADMIN_DASHBOARD,
+    },
+    {
+      title: 'Artists Genres',
+      icon: <MdDraw />,
+      path: ADMIN_ARTISTS_GENRES,
     },
     {
       title: 'Artists',
