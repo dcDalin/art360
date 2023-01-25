@@ -20,11 +20,7 @@ function EditArtistsPage() {
 
   return (
     <AdminLayout templateTitle='Edit Artist'>
-      <AdminCrudLayout
-        title='Edit Artist'
-        previousLink={ADMIN_ARTISTS}
-        deleteButton
-      >
+      <AdminCrudLayout title='Edit Artist' previousLink={ADMIN_ARTISTS}>
         {loading ? (
           <TableLoader />
         ) : error ? (
