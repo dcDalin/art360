@@ -7,7 +7,7 @@ export default function AdminMenuItem() {
   const adminMenuItems = useAdminMenu();
   const router = useRouter();
   return (
-    <ul className='menu rounded-box bg-base-100 p-1 md:p-2'>
+    <ul className='menu rounded-box w-full bg-base-100 p-1 lg:p-2'>
       {adminMenuItems && adminMenuItems.length
         ? adminMenuItems.map(({ title, icon, path }, index) => {
             if (title === 'Dashboard') {
@@ -17,8 +17,10 @@ export default function AdminMenuItem() {
                     className={router.asPath === 'path' ? 'active' : ''}
                     href={path}
                   >
-                    {icon}
-                    <div className='hidden md:flex'>{title}</div>
+                    <div className='flex items-center justify-center'>
+                      {icon}
+                    </div>
+                    <div className='hidden lg:flex'>{title}</div>
                   </Link>
                 </li>
               );
@@ -29,8 +31,10 @@ export default function AdminMenuItem() {
                     className={router.asPath.includes(path) ? 'active' : ''}
                     href={path}
                   >
-                    {icon}
-                    <div className='hidden md:flex'>{title}</div>
+                    <div className='flex items-center justify-center'>
+                      {icon}
+                    </div>
+                    <div className='hidden lg:flex'>{title}</div>
                   </Link>
                 </li>
               );
