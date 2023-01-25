@@ -13,6 +13,8 @@ import {
   useTable,
 } from 'react-table';
 
+import GlobalFilter from '@/components/tables/GlobalFilter';
+
 interface ITableRenderProps {
   columns: any;
   data: any;
@@ -33,7 +35,9 @@ export default function TableRenderer({ columns, data }: ITableRenderProps) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    state: { pageIndex, pageSize, globalFilter },
   } = useTable(
     { columns, data },
     useGlobalFilter,
@@ -43,6 +47,11 @@ export default function TableRenderer({ columns, data }: ITableRenderProps) {
 
   return (
     <div className='w-full overflow-x-auto'>
+      <GlobalFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        setGlobalFilter={setGlobalFilter}
+        globalFilter={globalFilter}
+      />
       <table {...getTableProps()} className='table-compact table w-full'>
         <thead>
           {headerGroups.map((headerGroup: any, index: number) => (

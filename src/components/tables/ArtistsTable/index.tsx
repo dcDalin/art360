@@ -29,51 +29,80 @@ export default function ArtistsTable() {
       {
         Header: 'ID',
         accessor: 'id',
+        Cell: ({ value }: any) => (
+          <p className='min-w-30 overflow-hidden text-ellipsis md:w-40'>
+            {value}
+          </p>
+        ),
+      },
+      {
+        Header: 'Profile Pic',
+        accessor: 'imageId',
         Cell: ({ row }: any) => {
           const imageUrl = nhost.storage.getPublicUrl({
             fileId: row.original.imageId,
           });
 
           return (
-            <div className='flex items-center space-x-3'>
-              <div className='py-4'>
-                <div
-                  className='tooltip tooltip-right cursor-pointer'
-                  data-tip='Edit image'
-                  onClick={() =>
-                    router.push(`${pathname}/edit-image?id=${row.original.id}`)
-                  }
-                >
-                  <div className='avatar'>
-                    <div className='mask mask-squircle h-12 w-12'>
-                      <NextImage
-                        src={imageUrl}
-                        imgClassName='object-cover'
-                        useSkeleton
-                        alt='sponsor'
-                        width={100}
-                        height={100}
-                      />
-                    </div>
+            <div className='max-w-sm py-1'>
+              <div
+                className='tooltip tooltip-top cursor-pointer'
+                data-tip='Edit image'
+                onClick={() =>
+                  router.push(`${pathname}/edit-image?id=${row.original.id}`)
+                }
+              >
+                <div className='avatar'>
+                  <div className='h-18 w-18 mask mask-square'>
+                    <NextImage
+                      src={imageUrl}
+                      imgClassName='object-contain'
+                      useSkeleton
+                      alt='sponsor'
+                      width={100}
+                      height={100}
+                    />
                   </div>
-                </div>
-              </div>
-              <div>
-                <div className='font-bold'>{`${row.original.firstName} ${row.original.lastName}`}</div>
-                <div className='text-sm opacity-50'>
-                  {row.original.nickName}
                 </div>
               </div>
             </div>
           );
         },
       },
-
+      {
+        Header: 'Nick Name',
+        accessor: 'nickName',
+        Cell: ({ value }: any) => (
+          <p className='max-w-sm overflow-hidden text-ellipsis md:w-40'>
+            {value}
+          </p>
+        ),
+      },
+      {
+        Header: 'First Name',
+        accessor: 'firstName',
+        Cell: ({ value }: any) => (
+          <p className='max-w-sm overflow-hidden text-ellipsis md:w-40'>
+            {value}
+          </p>
+        ),
+      },
+      {
+        Header: 'Last Name',
+        accessor: 'lastName',
+        Cell: ({ value }: any) => (
+          <p className='max-w-sm overflow-hidden text-ellipsis md:w-40'>
+            {value}
+          </p>
+        ),
+      },
       {
         Header: 'Bio',
         accessor: 'bio',
         Cell: ({ value }: any) => (
-          <p className='w-20 overflow-hidden text-ellipsis md:w-40'>{value}</p>
+          <p className='min-w-30 overflow-hidden text-ellipsis md:w-40'>
+            {value}
+          </p>
         ),
       },
       {
