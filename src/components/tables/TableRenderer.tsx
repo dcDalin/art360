@@ -52,7 +52,10 @@ export default function TableRenderer({ columns, data }: ITableRenderProps) {
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
       />
-      <table {...getTableProps()} className='table-compact table w-full'>
+      <table
+        {...getTableProps()}
+        className='table-zebra table-compact table w-full'
+      >
         <thead>
           {headerGroups.map((headerGroup: any, index: number) => (
             <tr {...headerGroup.getHeaderGroupProps()} key={index}>

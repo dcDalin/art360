@@ -46,7 +46,7 @@ export default function ArtistsTable() {
           return (
             <div className='max-w-sm py-1'>
               <div
-                className='tooltip tooltip-top cursor-pointer'
+                className='tooltip tooltip-left cursor-pointer'
                 data-tip='Edit image'
                 onClick={() =>
                   router.push(`${pathname}/edit-image?id=${row.original.id}`)
