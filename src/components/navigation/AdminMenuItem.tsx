@@ -14,10 +14,10 @@ export default function AdminMenuItem() {
               return (
                 <li key={index}>
                   <Link
-                    className={router.asPath === 'path' ? 'active' : ''}
+                    className={router.asPath === path ? 'active' : ''}
                     href={path}
                   >
-                    <div className='flex items-center justify-center'>
+                    <div className='flex w-full items-center justify-center'>
                       {icon}
                     </div>
                     <div className='hidden lg:flex'>{title}</div>
@@ -31,7 +31,7 @@ export default function AdminMenuItem() {
                     className={router.asPath.includes(path) ? 'active' : ''}
                     href={path}
                   >
-                    <div className='flex items-center justify-center'>
+                    <div className='flex w-full items-center justify-center'>
                       {icon}
                     </div>
                     <div className='hidden lg:flex'>{title}</div>
