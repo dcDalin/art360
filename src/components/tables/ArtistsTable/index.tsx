@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
+import { GiPaintBrush } from 'react-icons/gi';
 
 import nhost from '@/lib/nhost';
 
@@ -27,15 +28,6 @@ export default function ArtistsTable() {
   const columns = useMemo(
     () => [
       {
-        Header: 'ID',
-        accessor: 'id',
-        Cell: ({ value }: any) => (
-          <p className='min-w-30 overflow-hidden text-ellipsis md:w-40'>
-            {value}
-          </p>
-        ),
-      },
-      {
         Header: 'Profile Pic',
         accessor: 'imageId',
         Cell: ({ row }: any) => {
@@ -46,7 +38,7 @@ export default function ArtistsTable() {
           return (
             <div className='max-w-sm py-1'>
               <div
-                className='tooltip tooltip-left cursor-pointer'
+                className='tooltip tooltip-right cursor-pointer'
                 data-tip='Edit image'
                 onClick={() =>
                   router.push(`${pathname}/edit-image?id=${row.original.id}`)
@@ -129,6 +121,14 @@ export default function ArtistsTable() {
                 type='delete'
                 handleClick={() =>
                   router.push(`${pathname}/delete?id=${row.original.id}`)
+                }
+              />
+            </div>
+            <div className='tooltip' data-tip='Genres'>
+              <AlterButton
+                icon={<GiPaintBrush />}
+                handleClick={() =>
+                  router.push(`${pathname}/genres?id=${row.original.id}`)
                 }
               />
             </div>

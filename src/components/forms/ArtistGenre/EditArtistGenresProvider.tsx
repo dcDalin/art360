@@ -14,6 +14,7 @@ import TextArea from '@/components/forms/Elements/TextArea';
 
 import { UPDATE_ARTIST_GENRE_BY_PK } from '@/graphql/artistGenre/mutations';
 import { READ_ARTIST_GENRES } from '@/graphql/artistGenre/queries';
+import { READ_ARTISTS_GENRES } from '@/graphql/artistGenrePivot/queries';
 import { ADMIN_ARTISTS_GENRES } from '@/routes/paths';
 
 interface IEditArtistGenresProviderProps {
@@ -51,7 +52,10 @@ export default function EditArtistGenresProvider({
   const [updateArtistGenreByPk, { loading }] = useMutation(
     UPDATE_ARTIST_GENRE_BY_PK,
     {
-      refetchQueries: [{ query: READ_ARTIST_GENRES }, 'readArtistGenres'],
+      refetchQueries: [
+        { query: READ_ARTIST_GENRES },
+        { query: READ_ARTISTS_GENRES },
+      ],
     }
   );
 

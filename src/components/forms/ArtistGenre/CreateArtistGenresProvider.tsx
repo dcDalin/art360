@@ -9,6 +9,7 @@ import TextArea from '@/components/forms/Elements/TextArea';
 
 import { INSERT_ARTIST_GENRE_ONE } from '@/graphql/artistGenre/mutations';
 import { READ_ARTIST_GENRES } from '@/graphql/artistGenre/queries';
+import { READ_ARTISTS_GENRES } from '@/graphql/artistGenrePivot/queries';
 import { ADMIN_ARTISTS_GENRES } from '@/routes/paths';
 
 type FormValues = {
@@ -31,7 +32,7 @@ export default function CreateArtistGenreProvider() {
     {
       refetchQueries: [
         { query: READ_ARTIST_GENRES }, // DocumentNode object parsed with gql
-        'readArtistGenres', // Query name
+        { query: READ_ARTISTS_GENRES },
       ],
     }
   );

@@ -6,6 +6,7 @@ import { CiWarning } from 'react-icons/ci';
 
 import { DELETE_ARTIST_GENRE } from '@/graphql/artistGenre/mutations';
 import { READ_ARTIST_GENRES } from '@/graphql/artistGenre/queries';
+import { READ_ARTISTS_GENRES } from '@/graphql/artistGenrePivot/queries';
 import { ADMIN_ARTISTS_GENRES } from '@/routes/paths';
 
 interface IEditArtistProviderProps {
@@ -21,7 +22,10 @@ export default function DeleteArtistGenresProvider({
   const { id, name } = data;
 
   const [deleteArtistGenre, { loading }] = useMutation(DELETE_ARTIST_GENRE, {
-    refetchQueries: [{ query: READ_ARTIST_GENRES }, 'readArtistGenres'],
+    refetchQueries: [
+      { query: READ_ARTIST_GENRES },
+      { query: READ_ARTISTS_GENRES },
+    ],
   });
 
   const handleDelete = async () => {

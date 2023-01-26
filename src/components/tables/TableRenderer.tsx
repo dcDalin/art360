@@ -83,64 +83,63 @@ export default function TableRenderer({ columns, data }: ITableRenderProps) {
             );
           })}
         </tbody>
-
-        <div className='flex items-center space-x-4'>
-          <div className='btn-group py-4'>
-            <button
-              className='btn'
-              onClick={() => gotoPage(0)}
-              disabled={!canPreviousPage}
-            >
-              <FiChevronsLeft />
-            </button>
-            <button
-              className='btn'
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-            >
-              <FiChevronLeft />
-            </button>
-            <button
-              className='btn'
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
-            >
-              <FiChevronRight />
-            </button>
-            <button
-              className='btn'
-              onClick={() => gotoPage(pageCount - 1)}
-              disabled={!canNextPage}
-            >
-              <FiChevronsRight />
-            </button>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <div className='flex items-center space-x-1'>
-              <div>Page</div>
-              <div className='font-bold'>{pageIndex + 1}</div>
-              <div>of</div>
-              <div className='font-bold'>{pageOptions.length}</div>
-            </div>
-          </div>
-
-          <div className='flex items-center'>
-            <select
-              className='select'
-              value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value));
-              }}
-            >
-              {[10, 20, 30, 40, 50].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select>
+      </table>
+      <div className='flex items-center space-x-4'>
+        <div className='btn-group py-4'>
+          <button
+            className='btn'
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          >
+            <FiChevronsLeft />
+          </button>
+          <button
+            className='btn'
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            <FiChevronLeft />
+          </button>
+          <button
+            className='btn'
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
+            <FiChevronRight />
+          </button>
+          <button
+            className='btn'
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            <FiChevronsRight />
+          </button>
+        </div>
+        <div className='flex items-center space-x-2'>
+          <div className='flex items-center space-x-1'>
+            <div>Page</div>
+            <div className='font-bold'>{pageIndex + 1}</div>
+            <div>of</div>
+            <div className='font-bold'>{pageOptions.length}</div>
           </div>
         </div>
-      </table>
+
+        <div className='flex items-center'>
+          <select
+            className='select'
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+            }}
+          >
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 }
