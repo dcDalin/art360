@@ -4,33 +4,33 @@ import router from 'next/router';
 import toast from 'react-hot-toast';
 import { CiWarning } from 'react-icons/ci';
 
-import { DELETE_CATEGORIES } from '@/graphql/categories/mutations';
-import { READ_CATEGORIES } from '@/graphql/categories/queries';
-import { READ_SUB_CATEGORIES } from '@/graphql/subCategories/queries';
-import { ADMIN_STORE_CATEGORIES } from '@/routes/paths';
+import { DELETE_ARTIST_GENRE } from '@/graphql/artistGenre/mutations';
+import { READ_ARTIST_GENRES } from '@/graphql/artistGenre/queries';
+import { READ_ARTISTS_GENRES } from '@/graphql/artistGenrePivot/queries';
+import { ADMIN_ARTISTS_GENRES } from '@/routes/paths';
 
-interface IDeleteCategoriesproviderProps {
+interface IDeleteSubCategoriesProviderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
 }
 
-export default function DeleteCategoriesProvider({
+export default function DeleteSubCategoriesProvider({
   data,
-}: IDeleteCategoriesproviderProps) {
+}: IDeleteSubCategoriesProviderProps) {
   const accessToken = useAccessToken();
 
   const { id, name } = data;
 
-  const [deleteCategory, { loading }] = useMutation(DELETE_CATEGORIES, {
+  const [deleteArtistGenre, { loading }] = useMutation(DELETE_ARTIST_GENRE, {
     refetchQueries: [
-      { query: READ_CATEGORIES },
-      { query: READ_SUB_CATEGORIES },
+      { query: READ_ARTIST_GENRES },
+      { query: READ_ARTISTS_GENRES },
     ],
   });
 
   const handleDelete = async () => {
     try {
-      await deleteCategory({
+      await deleteArtistGenre({
         context: {
           headers: {
             authorization: `Bearer ${accessToken}`,
@@ -38,8 +38,8 @@ export default function DeleteCategoriesProvider({
         },
         variables: { id },
       });
-      toast.success('Product category deleted', { id: 'artist-deleted' });
-      router.replace(ADMIN_STORE_CATEGORIES, undefined, { shallow: true });
+      toast.success('Artist genre deleted', { id: 'artist-deleted' });
+      router.replace(ADMIN_ARTISTS_GENRES, undefined, { shallow: true });
     } catch (error) {
       toast.error('Something went wrong, please try again', { id: 'error' });
     }
@@ -48,16 +48,8 @@ export default function DeleteCategoriesProvider({
   return (
     <div className='max-w-4xl'>
       <div>
-        <div>Are you sure you want to delete product category</div>
+        <div>Are you sure you want to delete sub category </div>
         <h4 className='pl-4 font-bold'>{name}</h4>
-
-        <div className='flex items-center space-x-2 py-4 text-sm font-bold text-red-800'>
-          <CiWarning />
-          <span>
-            All it's SUB CATEGORIES and PRODUCTS will be deleted as well.
-          </span>
-        </div>
-
         <div className='flex items-center space-x-2 py-4 text-sm font-bold text-red-800'>
           <CiWarning />
           <span>This action can not be reversed!</span>
