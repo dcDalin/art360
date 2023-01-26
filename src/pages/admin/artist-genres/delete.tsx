@@ -19,7 +19,7 @@ function DeleteArtistPage() {
   });
 
   return (
-    <AdminLayout templateTitle='Edit Artist Genre'>
+    <AdminLayout templateTitle='Delete Artist Genre'>
       <AdminCrudLayout
         title='Delete Artist Genre'
         previousLink={ADMIN_ARTISTS_GENRES}
