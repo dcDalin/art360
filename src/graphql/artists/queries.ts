@@ -15,6 +15,7 @@ export const READ_ARTISTS = gql`
       phoneNumber
       twitter
       updatedAt
+      isFeatured
     }
   }
 `;
@@ -28,6 +29,21 @@ export const READ_ARTIST_BY_PK = gql`
       imageId
       lastName
       nickName
+      isFeatured
+    }
+  }
+`;
+
+export const FEATURED_ARTIST = gql`
+  query featuredArtist {
+    artists(where: { isFeatured: { _eq: true } }, limit: 4) {
+      nickName
+      lastName
+      isFeatured
+      imageId
+      id
+      firstName
+      bio
     }
   }
 `;

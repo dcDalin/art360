@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import ContainerLayout from '@/components/layout/ContainerLayout';
+import Footer from '@/components/layout/Footer';
 import MobileBottomNav from '@/components/navigation/MobileBottomNav';
 import TopNav from '@/components/navigation/TopNav';
 import Seo from '@/components/Seo';
@@ -17,9 +18,12 @@ export default function Layout({
     <>
       <Seo templateTitle={templateTitle} />
       <TopNav />
-      <ContainerLayout>
-        <div className='flex'>{children}</div>
-      </ContainerLayout>
+      <div className='h-screen bg-gray-50'>
+        <ContainerLayout>
+          <div>{children}</div>
+        </ContainerLayout>
+      </div>
+      <Footer />
       <MobileBottomNav />
     </>
   );

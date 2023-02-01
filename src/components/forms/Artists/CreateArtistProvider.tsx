@@ -1,9 +1,11 @@
 import { useMutation } from '@apollo/client';
 import { useAccessToken, useFileUpload } from '@nhost/react';
+import router from 'next/router';
 import { useContext } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
+import CheckBox from '@/components/forms/Elements/CheckBox';
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 import UploadImage from '@/components/forms/UploadImage';
@@ -14,12 +16,14 @@ import {
 } from '@/context/ImageUploadContext';
 import { INSERT_ARTISTS_ONE } from '@/graphql/artists/mutations';
 import { READ_ARTISTS } from '@/graphql/artists/queries';
+import { ADMIN_ARTISTS } from '@/routes/paths';
 
 type FormValues = {
   firstName: string;
   lastName: string;
   nickName: string;
   bio: string;
+  isFeatured: boolean;
 };
 
 export default function CreateArtistProvider() {
@@ -44,7 +48,7 @@ export default function CreateArtistProvider() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { firstName, lastName, nickName, bio } = data;
+    const { firstName, lastName, nickName, bio, isFeatured } = data;
 
     try {
       if (image && image[0] && image[0].file) {
@@ -64,10 +68,17 @@ export default function CreateArtistProvider() {
                 authorization: `Bearer ${accessToken}`,
               },
             },
-            variables: { bio, firstName, lastName, nickName, imageId: id },
+            variables: {
+              bio,
+              firstName,
+              lastName,
+              nickName,
+              imageId: id,
+              isFeatured,
+            },
           });
           toast.success(`${nickName} has been added`, { id: 'artist-success' });
-          // router.replace(ADMIN_ARTISTS, undefined, { shallow: true });
+          router.replace(ADMIN_ARTISTS, undefined, { shallow: true });
         }
       } else {
         toast.error('No image file found', { id: 'error-no-image' });
@@ -147,6 +158,7 @@ export default function CreateArtistProvider() {
               },
             }}
           />
+          <CheckBox id='isFeatured' label='Featured' type='checkbox' />
 
           <button
             disabled={loading || isUploading}

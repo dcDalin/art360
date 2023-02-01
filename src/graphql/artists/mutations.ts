@@ -7,6 +7,7 @@ export const INSERT_ARTISTS_ONE = gql`
     $imageId: uuid = ""
     $nickName: String = ""
     $lastName: String = ""
+    $isFeatured: Boolean = "false"
   ) {
     insert_artists_one(
       object: {
@@ -15,6 +16,7 @@ export const INSERT_ARTISTS_ONE = gql`
         imageId: $imageId
         nickName: $nickName
         lastName: $lastName
+        isFeatured: $isFeatured
       }
     ) {
       id
@@ -29,6 +31,7 @@ export const UPDATE_ARTIST_BY_PK = gql`
     $firstName: String = ""
     $lastName: String = ""
     $nickName: String = ""
+    $isFeatured: Boolean = "false"
   ) {
     update_artists_by_pk(
       pk_columns: { id: $id }
@@ -37,6 +40,7 @@ export const UPDATE_ARTIST_BY_PK = gql`
         firstName: $firstName
         lastName: $lastName
         nickName: $nickName
+        isFeatured: $isFeatured
       }
     ) {
       id

@@ -10,9 +10,9 @@ export default function TopNav() {
   return (
     <>
       <TopBannerMessage />
-      <div className='bg-primary'>
+      <div className='bg-base-100 pb-4'>
         <ContainerLayout>
-          <div className='navbar bg-primary px-0'>
+          <div className='navbar bg-base-100 px-0'>
             <div className='flex-1'>
               <AppLogo />
             </div>

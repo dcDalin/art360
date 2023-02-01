@@ -9,6 +9,7 @@ import {
 } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
+import CheckBox from '@/components/forms/Elements/CheckBox';
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 
@@ -26,12 +27,13 @@ type FormValues = {
   lastName: string;
   nickName: string;
   bio: string;
+  isFeatured: boolean;
 };
 
 export default function EditArtistProvider({ data }: IEditArtistProviderProps) {
   const accessToken = useAccessToken();
 
-  const { id, bio, firstName, lastName, nickName } = data;
+  const { id, bio, firstName, lastName, nickName, isFeatured } = data;
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
@@ -41,6 +43,7 @@ export default function EditArtistProvider({ data }: IEditArtistProviderProps) {
       lastName,
       nickName,
       bio,
+      isFeatured,
     },
   });
 
@@ -55,7 +58,7 @@ export default function EditArtistProvider({ data }: IEditArtistProviderProps) {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { bio, firstName, lastName, nickName } = data;
+    const { bio, firstName, lastName, nickName, isFeatured } = data;
 
     try {
       await updateArtistByPk({
@@ -64,7 +67,7 @@ export default function EditArtistProvider({ data }: IEditArtistProviderProps) {
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { id, firstName, lastName, nickName, bio },
+        variables: { id, firstName, lastName, nickName, bio, isFeatured },
       });
       toast.success('Artist updated', { id: 'artist-updated' });
       router.replace(ADMIN_ARTISTS, undefined, { shallow: true });
@@ -139,6 +142,7 @@ export default function EditArtistProvider({ data }: IEditArtistProviderProps) {
               },
             }}
           />
+          <CheckBox id='isFeatured' label='Featured' type='checkbox' />
 
           <button
             disabled={loading || !isDirty}
