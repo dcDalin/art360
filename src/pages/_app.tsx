@@ -5,6 +5,9 @@ import NextNProgress from 'nextjs-progressbar';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 
+// carousel css files
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 // global styles
 import '@/styles/globals.css';
 
