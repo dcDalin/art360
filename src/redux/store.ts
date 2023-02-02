@@ -3,6 +3,7 @@ import { createWrapper } from 'next-redux-wrapper';
 import { Action } from 'redux';
 
 import authForms from '@/redux/authForms/authFormsSlice';
+import createProduct from '@/redux/createProduct/createProductSlice';
 import imageUpload from '@/redux/imageUpload/imageUploadSlice';
 import adminCRUDModal from '@/redux/modals/adminCRUDModalSlice';
 import updateSettingsModal from '@/redux/modals/updateSettingsmodalSlice';
@@ -14,6 +15,7 @@ const makeStore = () =>
       updateSettingsModal,
       adminCRUDModal,
       imageUpload,
+      createProduct,
     },
     devTools: true,
   });
