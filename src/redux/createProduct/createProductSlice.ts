@@ -7,20 +7,33 @@ interface IFormData {
   description?: string;
 }
 
-export interface AuthFormsSlice {
+export interface ProductFormSlice {
   activeFormStep: number;
   formData: IFormData;
-  imageData: any;
+  selectedCategory: any;
+  selectedSubCategory: any;
+  selectedArtist: any;
 }
 
-const initialState: AuthFormsSlice = {
+const initialState: ProductFormSlice = {
   activeFormStep: 1,
   formData: {
     name: '',
     price: 0,
     description: '',
   },
-  imageData: {},
+  selectedCategory: {
+    label: '',
+    value: '',
+  },
+  selectedSubCategory: {
+    label: '',
+    value: '',
+  },
+  selectedArtist: {
+    label: '',
+    value: '',
+  },
 };
 
 export const createProductSlice = createSlice({
@@ -28,13 +41,13 @@ export const createProductSlice = createSlice({
   initialState,
   reducers: {
     changeActiveStep: (
-      state: AuthFormsSlice,
+      state: ProductFormSlice,
       action: PayloadAction<number>
     ) => {
       state.activeFormStep = action.payload;
     },
     handleFormData: (
-      state: AuthFormsSlice,
+      state: ProductFormSlice,
       action: PayloadAction<IFormData>
     ) => {
       return {
@@ -42,9 +55,45 @@ export const createProductSlice = createSlice({
         formData: { ...state.formData, ...action.payload },
       };
     },
+    setSelectedCategory: (
+      state: ProductFormSlice,
+      action: PayloadAction<any>
+    ) => {
+      return {
+        ...state,
+        selectedCategory: { ...state.selectedCategory, ...action.payload },
+      };
+    },
+    setSelectedSubCategory: (
+      state: ProductFormSlice,
+      action: PayloadAction<any>
+    ) => {
+      return {
+        ...state,
+        selectedSubCategory: {
+          ...state.selectedSubCategory,
+          ...action.payload,
+        },
+      };
+    },
+    setSelectedArtist: (
+      state: ProductFormSlice,
+      action: PayloadAction<any>
+    ) => {
+      return {
+        ...state,
+        selectedArtist: { ...state.selectedArtist, ...action.payload },
+      };
+    },
   },
 });
 
-export const { changeActiveStep, handleFormData } = createProductSlice.actions;
+export const {
+  changeActiveStep,
+  handleFormData,
+  setSelectedCategory,
+  setSelectedSubCategory,
+  setSelectedArtist,
+} = createProductSlice.actions;
 
 export default createProductSlice.reducer;
