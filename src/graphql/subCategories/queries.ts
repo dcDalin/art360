@@ -23,3 +23,12 @@ export const READ_SUB_CATEGORIES_BY_PK = gql`
     }
   }
 `;
+
+export const READ_SUB_CATEGORY_BY_CATEGORY = gql`
+  query readSubCategoryByCategory($_eq: uuid = "") {
+    sub_categories(where: { categoryId: { _eq: $_eq } }) {
+      id
+      name
+    }
+  }
+`;

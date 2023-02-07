@@ -7,6 +7,7 @@ export const ADMIN_ARTISTS = '/admin/artists';
 export const ADMIN_ARTISTS_GENRES = '/admin/artist-genres';
 export const ADMIN_STORE_CATEGORIES = '/admin/store/categories';
 export const ADMIN_STORE_SUB_CATEGORIES = '/admin/store/sub-categories';
+export const ADMIN_STORE_PRODUCTS = '/admin/store/products';
 
 export const AUTH_LOGIN = '/auth/login';
 export const AUTH_REGISTER = '/auth/register';

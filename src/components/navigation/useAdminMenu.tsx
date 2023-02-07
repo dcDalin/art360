@@ -1,5 +1,6 @@
 import { AiFillDashboard } from 'react-icons/ai';
 import { BiCategoryAlt } from 'react-icons/bi';
+import { FaPaintBrush } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { MdDraw, MdOutlineCategory } from 'react-icons/md';
 import { SiGithubsponsors } from 'react-icons/si';
@@ -11,6 +12,7 @@ import {
   ADMIN_SETTINGS,
   ADMIN_SPONSORS,
   ADMIN_STORE_CATEGORIES,
+  ADMIN_STORE_PRODUCTS,
   ADMIN_STORE_SUB_CATEGORIES,
 } from '@/routes/paths';
 
@@ -45,6 +47,11 @@ export default function useAdminMenu() {
       title: 'Product Sub Categories',
       icon: <MdOutlineCategory />,
       path: ADMIN_STORE_SUB_CATEGORIES,
+    },
+    {
+      title: 'Products',
+      icon: <FaPaintBrush />,
+      path: ADMIN_STORE_PRODUCTS,
     },
     {
       title: 'Settings',
