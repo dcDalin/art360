@@ -3,7 +3,7 @@ import { IoMdArrowBack } from 'react-icons/io';
 import { RiAddFill } from 'react-icons/ri';
 interface IAdminCrudLayoutProps {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   createButton?: boolean;
   previousLink?: string;
 }
@@ -33,7 +33,7 @@ export default function AdminCrudLayout({
               </button>
             </div>
           ) : null}
-          <h1 className='text-lg md:text-2xl'>{title}</h1>
+          {title ? <h1 className='text-lg md:text-2xl'>{title}</h1> : null}
         </div>
         {createButton ? (
           <button

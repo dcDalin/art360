@@ -28,7 +28,7 @@ const initialState: ProductFormSlice = {
   },
   selectedSubCategory: {
     label: '',
-    value: '',
+    value: null,
   },
   selectedArtist: {
     label: '',

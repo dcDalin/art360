@@ -1,24 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { useAccessToken } from '@nhost/react';
+import router from 'next/router';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 
 import { READ_ARTISTS } from '@/graphql/artists/queries';
+import { INSERT_PRODUCT } from '@/graphql/products/mutation';
+import { FETCH_PRODUCTS } from '@/graphql/products/queries';
 import {
   changeActiveStep,
   setSelectedArtist,
 } from '@/redux/createProduct/createProductSlice';
 import { RootState } from '@/redux/store';
+import { ADMIN_STORE_PRODUCTS } from '@/routes/paths';
 
 export default function Step3() {
   const dispatch = useDispatch();
-
-  const { selectedArtist } = useSelector(
-    (state: RootState) => state.createProduct
-  );
+  const accessToken = useAccessToken();
 
   const [artistsOptions, setArtistsOptions] = useState([]);
+
+  const { selectedArtist, formData, selectedCategory, selectedSubCategory } =
+    useSelector((state: RootState) => state.createProduct);
 
   const {
     data: artistsData,
@@ -54,6 +60,43 @@ export default function Step3() {
     dispatch(setSelectedArtist(artist));
   };
 
+  const [insertProductOne, { data, loading }] = useMutation(INSERT_PRODUCT, {
+    refetchQueries: [FETCH_PRODUCTS],
+  });
+
+  // upon submission of data, as soon as we get the id saved in db, redirect
+  if (data && data.insert_products_one && data.insert_products_one.id) {
+    router.replace(
+      `${ADMIN_STORE_PRODUCTS}/edit-image?id=${data.insert_products_one.id}`,
+      undefined,
+      { shallow: true }
+    );
+  }
+
+  const handleCreateProductSubmit = async () => {
+    try {
+      await insertProductOne({
+        context: {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        },
+        variables: {
+          artist: selectedArtist.value,
+          category: selectedCategory.value,
+          description: formData.description,
+          name: formData.name,
+          price: formData.price,
+          subCategory: selectedSubCategory.value,
+        },
+      });
+
+      toast.success(`Product added`, { id: 'prod-success' });
+    } catch (error) {
+      toast.error('Something went wrong, please try again', { id: 'error' });
+    }
+  };
+
   if (artistsError) return <p>Could not fetch artists</p>;
 
   return (
@@ -73,18 +116,22 @@ export default function Step3() {
 
       <div className='flex items-center space-x-10'>
         <button
-          className='btn-primary btn my-6'
+          className={`btn-primary btn my-6 ${
+            loading ? 'loading disabled' : ''
+          }`}
           onClick={() => dispatch(changeActiveStep(2))}
         >
           prev
         </button>
         <button
-          className='btn-primary btn my-6'
+          className={`btn-primary btn my-6 ${
+            loading ? 'disabled: loading' : ''
+          }`}
           type='submit'
           disabled={!selectedArtist.value}
-          onClick={() => dispatch(changeActiveStep(4))}
+          onClick={handleCreateProductSubmit}
         >
-          next
+          {loading ? 'Saving' : 'save'}
         </button>
       </div>
     </div>

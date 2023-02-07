@@ -23,16 +23,12 @@ export default function Step2() {
   const [categoriesOptions, setCategoriesOptions] = useState([]);
   const [subCategoriesOptions, setSubCategoriesOptions] = useState([]);
 
-  const {
-    data: categoriesData,
-    loading: categoriesLoading,
-    error: categoriesError,
-  } = useQuery(READ_CATEGORIES);
+  const { data: categoriesData, loading: categoriesLoading } =
+    useQuery(READ_CATEGORIES);
 
   const {
     data: subCategoriesData,
     loading: subCategoriesLoading,
-    error: subCategoriesError,
     refetch,
   } = useQuery(READ_SUB_CATEGORY_BY_CATEGORY, {
     variables: { _eq: selectedCategory.value },
@@ -76,7 +72,7 @@ export default function Step2() {
       dispatch(
         setSelectedSubCategory({
           label: '',
-          value: '',
+          value: null,
         })
       );
       setSubCategoriesOptions([]);
@@ -91,42 +87,46 @@ export default function Step2() {
     dispatch(setSelectedSubCategory(subCategory));
   };
 
-  if (categoriesError || subCategoriesError)
-    return <p>Could not find subcategories or categories</p>;
-
   return (
     <div className='max-w-4xl'>
-      <div className='form-control w-full pb-0'>
-        <label className='label cursor-pointer' htmlFor='category'>
-          <span className='label-text text-base'>Category</span>
-        </label>
-        <Select
-          defaultValue={selectedCategory}
-          isLoading={categoriesLoading}
-          options={categoriesOptions}
-          onChange={handleSelectCategory}
-          className='z-10'
-        />
-      </div>
-
-      {selectedCategory.value && subCategoriesOptions.length === 0 ? (
-        <p>Category contains no sub categories</p>
-      ) : selectedCategory.value && subCategoriesOptions.length ? (
+      <div className='flex items-center justify-between space-x-4'>
         <div className='form-control w-full pb-0'>
-          <label className='label cursor-pointer' htmlFor='sub-category'>
-            <span className='label-text text-base'>Sub Category</span>
+          <label className='label cursor-pointer' htmlFor='category'>
+            <span className='label-text text-base'>Category</span>
           </label>
           <Select
-            defaultValue={selectedSubCategory}
-            isLoading={subCategoriesLoading}
-            onChange={handleSelectSubCategory}
-            options={subCategoriesOptions}
+            defaultValue={selectedCategory}
+            isLoading={categoriesLoading}
+            options={categoriesOptions}
+            onChange={handleSelectCategory}
             className='z-10'
           />
         </div>
-      ) : (
-        <p>Select category</p>
-      )}
+
+        {selectedCategory.value && subCategoriesOptions.length === 0 ? (
+          <div className='form-control w-full pb-0'>
+            <label className='label cursor-pointer' htmlFor='sub-category'>
+              <span className='label-text text-base'>Sub Category</span>
+            </label>
+            <Select isDisabled={true} className='z-10' />
+          </div>
+        ) : selectedCategory.value && subCategoriesOptions.length ? (
+          <div className='form-control w-full pb-0'>
+            <label className='label cursor-pointer' htmlFor='sub-category'>
+              <span className='label-text text-base'>Sub Category</span>
+            </label>
+            <Select
+              defaultValue={selectedSubCategory}
+              isLoading={subCategoriesLoading}
+              onChange={handleSelectSubCategory}
+              options={subCategoriesOptions}
+              className='z-10'
+            />
+          </div>
+        ) : (
+          <p>Select category</p>
+        )}
+      </div>
 
       <div className='flex items-center space-x-10'>
         <button

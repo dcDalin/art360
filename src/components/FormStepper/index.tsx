@@ -11,7 +11,6 @@ export default function FormStepper() {
     { step: 1, description: 'Product info' },
     { step: 2, description: 'Category' },
     { step: 3, description: 'Artist' },
-    { step: 4, description: 'Images' },
   ];
 
   return (

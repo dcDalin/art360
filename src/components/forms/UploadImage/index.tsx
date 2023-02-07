@@ -27,10 +27,11 @@ export default function UploadImage({
   return (
     <div>
       <ImageUploading
+        multiple={false}
         value={image}
         onChange={onChange}
         dataURLKey='data_url'
-        acceptType={['jpg', 'gif', 'png']}
+        acceptType={['jpg', 'gif', 'png', 'jpeg']}
       >
         {({
           imageList,

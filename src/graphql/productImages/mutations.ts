@@ -9,3 +9,11 @@ export const INSERT_PRODUCT_IMAGES = gql`
     }
   }
 `;
+
+export const DELETE_PRODUCT_IMAGE_BY_PK = gql`
+  mutation deleteProductImageByPk($id: uuid = "") {
+    delete_product_images_by_pk(id: $id) {
+      id
+    }
+  }
+`;

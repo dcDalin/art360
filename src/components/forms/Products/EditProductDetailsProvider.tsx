@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client';
 import { useAccessToken } from '@nhost/react';
-import router from 'next/router';
 import {
   FormProvider,
   SubmitHandler,
@@ -12,26 +11,28 @@ import toast from 'react-hot-toast';
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 
-import { UPDATE_CATEGORIES_BY_PK } from '@/graphql/categories/mutations';
-import { READ_CATEGORIES } from '@/graphql/categories/queries';
-import { ADMIN_STORE_CATEGORIES } from '@/routes/paths';
+import { UPDATE_PRODUCT_DESCRIPTION } from '@/graphql/products/mutation';
+import { FETCH_PRODUCTS } from '@/graphql/products/queries';
 
-interface IEditCategoriesProviderProps {
+interface IEditProductDetailsProviderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
+  closeModal: () => void;
 }
 
 type FormValues = {
   name: string;
   description: string;
+  price: number;
 };
 
-export default function EditCategoriesProvider({
+export default function EditProductDetailsProvider({
   data,
-}: IEditCategoriesProviderProps) {
+  closeModal,
+}: IEditProductDetailsProviderProps) {
   const accessToken = useAccessToken();
 
-  const { id, name, description } = data;
+  const { id, name, description, price } = data;
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
@@ -39,6 +40,7 @@ export default function EditCategoriesProvider({
     defaultValues: {
       name,
       description,
+      price,
     },
   });
 
@@ -48,27 +50,28 @@ export default function EditCategoriesProvider({
     control,
   });
 
-  const [updateCategoriesByPk, { loading }] = useMutation(
-    UPDATE_CATEGORIES_BY_PK,
+  const [updateProductDetails, { loading }] = useMutation(
+    UPDATE_PRODUCT_DESCRIPTION,
     {
-      refetchQueries: [{ query: READ_CATEGORIES }],
+      refetchQueries: [{ query: FETCH_PRODUCTS }],
     }
   );
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { name, description } = data;
+    const { name, description, price } = data;
 
     try {
-      await updateCategoriesByPk({
+      await updateProductDetails({
         context: {
           headers: {
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { id, name, description },
+        variables: { id, name, description, price },
       });
-      toast.success('Product category updated', { id: 'artist-updated' });
-      router.replace(ADMIN_STORE_CATEGORIES, undefined, { shallow: true });
+
+      toast.success('Product details updated', { id: 'product-updated' });
+      closeModal();
     } catch (error) {
       toast.error('Something went wrong, please try again', { id: 'error' });
     }
@@ -80,16 +83,33 @@ export default function EditCategoriesProvider({
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-0'>
           <Input
             id='name'
-            label='Genre name'
+            label='Product name'
             validation={{
-              required: 'Genre name is required',
+              required: 'Product name is required',
               minLength: {
                 value: 3,
-                message: 'Genre name is too short',
+                message: 'Product name is too short',
               },
               maxLength: {
                 value: 30,
-                message: 'Genre name is too long',
+                message: 'Product name is too long',
+              },
+            }}
+          />
+
+          <Input
+            id='price'
+            type='number'
+            label='Product price'
+            validation={{
+              required: 'Product price is required',
+              min: {
+                value: 10,
+                message: 'Price is too low',
+              },
+              maxLength: {
+                value: 1000000,
+                message: 'Price is too high',
               },
             }}
           />

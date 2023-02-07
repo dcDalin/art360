@@ -7,24 +7,23 @@ import TableLoader from '@/components/loaders/TableLoader';
 import AlterButton from '@/components/tables/AlterButton';
 import TableRenderer from '@/components/tables/TableRenderer';
 
-import { READ_CATEGORIES } from '@/graphql/categories/queries';
+import { FETCH_PRODUCTS } from '@/graphql/products/queries';
 
 export default function ProductsTable() {
   const router = useRouter();
   const { pathname } = useRouter();
 
-  const { data, loading, error } = useQuery(READ_CATEGORIES);
+  const { data, loading, error } = useQuery(FETCH_PRODUCTS);
 
   const tableData = useMemo(
-    () =>
-      data && data.categories && data.categories.length ? data.categories : [],
+    () => (data && data.products && data.products.length ? data.products : []),
     [data]
   );
 
   const columns = useMemo(
     () => [
       {
-        Header: 'Category Name',
+        Header: 'Product Name',
         accessor: 'name',
         Cell: ({ value }: any) => (
           <p className='max-w-sm overflow-hidden text-ellipsis md:w-40'>
