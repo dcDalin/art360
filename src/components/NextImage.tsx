@@ -27,7 +27,7 @@ export default function NextImage({
   alt,
   className,
   imgClassName,
-  blurClassName,
+  blurClassName = 'bg-gray-200',
   ...rest
 }: NextImageProps) {
   const [status, setStatus] = React.useState(

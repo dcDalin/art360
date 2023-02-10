@@ -1,5 +1,5 @@
 import { BiHome } from 'react-icons/bi';
-import { BsSearch } from 'react-icons/bs';
+import { BsCart3 } from 'react-icons/bs';
 import { VscAccount } from 'react-icons/vsc';
 
 import { ADMIN_DASHBOARD, ADMIN_SETTINGS } from '@/routes/paths';
@@ -11,13 +11,13 @@ export default function useAdminMenu() {
       path: ADMIN_DASHBOARD,
     },
     {
-      title: 'Account',
+      title: 'Art',
       icon: <VscAccount />,
       path: ADMIN_SETTINGS,
     },
     {
-      title: 'Search',
-      icon: <BsSearch />,
+      title: 'Cart',
+      icon: <BsCart3 />,
       path: ADMIN_SETTINGS,
     },
   ];
