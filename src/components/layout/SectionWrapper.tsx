@@ -11,13 +11,12 @@ export default function SectionWrapper({
 }: ISectionWrapperProps) {
   return (
     <div>
-      {heading ? (
-        <div className='flex w-full flex-col items-center'>
-          <h1 className='text-5xl font-bold'>{heading}</h1>
-          {description ? <p className='py-2'>{description}</p> : null}
-          <div className='divider mt-0 py-0'></div>
-        </div>
-      ) : null}
+      <div className='flex w-full flex-col items-center'>
+        {heading ? <h1 className='text-5xl font-bold'>{heading}</h1> : null}
+        {description ? <p className='py-2'>{description}</p> : null}
+        <div className='divider mt-0 py-0'></div>
+      </div>
+
       <div>{children}</div>
     </div>
   );

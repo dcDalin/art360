@@ -32,7 +32,7 @@ export default function UserDropDown() {
         <div className='h-6 w-20 animate-pulse rounded-lg bg-base-100/50'></div>
       ) : (
         <>
-          <label tabIndex={0} className='btn btn-ghost gap-2'>
+          <label tabIndex={0} className='btn-ghost btn gap-2'>
             {isAuthenticated ? (
               <>
                 <Avatar url={avatar} width={15} height={15} />

@@ -56,3 +56,40 @@ export const FETCH_PRODUCTS_BY_PK = gql`
     }
   }
 `;
+
+export const FETCH_NEW_PRODUCTS = gql`
+  query fetchNewProducts {
+    products(order_by: { createdAt: desc }, limit: 10) {
+      id
+      name
+      price
+      product_images(limit: 1) {
+        imageId
+      }
+    }
+  }
+`;
+
+export const FETCH_PRODUCTS_FILTER_SORT_PAGINATE = gql`
+  query MyQuery($condition: products_bool_exp!) {
+    products(order_by: { createdAt: desc }, where: $condition) {
+      name
+      price
+      id
+      product_images(limit: 1) {
+        id
+        imageId
+      }
+    }
+  }
+`;
+
+export const FETCH_PRODUCTS_FILTER_SORT_AGGREGATE = gql`
+  query fetchAggregate($condition: products_bool_exp!) {
+    products_aggregate(where: $condition) {
+      aggregate {
+        count(columns: id)
+      }
+    }
+  }
+`;

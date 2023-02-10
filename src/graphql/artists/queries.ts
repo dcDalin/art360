@@ -10,12 +10,16 @@ export const READ_ARTISTS = gql`
       id
       imageId
       instagram
+      isFeatured
       lastName
       nickName
       phoneNumber
-      twitter
-      updatedAt
-      isFeatured
+      artists_genres_pivots {
+        artist_genre {
+          id
+          name
+        }
+      }
     }
   }
 `;
@@ -44,6 +48,45 @@ export const FEATURED_ARTIST = gql`
       id
       firstName
       bio
+    }
+  }
+`;
+
+export const ARTIST_PROFILE = gql`
+  query artistProfile($id: uuid = "", $_eq: uuid = "") {
+    artists_by_pk(id: $id) {
+      artists_genres_pivots {
+        artist_genre {
+          id
+          name
+        }
+      }
+      bio
+      createdAt
+      facebook
+      firstName
+      id
+      imageId
+      instagram
+      isFeatured
+      lastName
+      nickName
+      phoneNumber
+      twitter
+      updatedAt
+      products(
+        where: { artist: { _eq: $_eq } }
+        limit: 5
+        order_by: { createdAt: desc }
+      ) {
+        id
+        name
+        price
+        product_images(limit: 1) {
+          imageId
+          id
+        }
+      }
     }
   }
 `;

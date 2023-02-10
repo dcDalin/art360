@@ -7,6 +7,7 @@ import createProduct from '@/redux/createProduct/createProductSlice';
 import imageUpload from '@/redux/imageUpload/imageUploadSlice';
 import adminCRUDModal from '@/redux/modals/adminCRUDModalSlice';
 import updateSettingsModal from '@/redux/modals/updateSettingsmodalSlice';
+import searchArt from '@/redux/searchArt/searchArtSlice';
 
 const makeStore = () =>
   configureStore({
@@ -16,6 +17,7 @@ const makeStore = () =>
       adminCRUDModal,
       imageUpload,
       createProduct,
+      searchArt,
     },
     devTools: true,
   });
