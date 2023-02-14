@@ -1,26 +1,49 @@
 import { useQuery } from '@apollo/client';
+import { useAccessToken, useUserId } from '@nhost/nextjs';
 import { useRouter } from 'next/router';
+import { BsCart } from 'react-icons/bs';
 
 import nhost from '@/lib/nhost';
 
 import ArtView from '@/components/cards/ArtViewCard';
+import AddToCart from '@/components/Cart/AddToCart';
+import RemoveFromCart from '@/components/Cart/RemoveFromCart';
 import Layout from '@/components/layout/Layout';
 import TableLoader from '@/components/loaders/TableLoader';
 import NextImage from '@/components/NextImage';
 
+import { PRODUCT_EXISTS_IN_CART } from '@/graphql/cart/queries';
 import { FETCH_PRODUCTS_BY_PK } from '@/graphql/products/queries';
+import { CART } from '@/routes/paths';
 
 export default function ArtPage() {
   const router = useRouter();
   const { id } = router.query;
 
+  const userId = useUserId();
+  const accessToken = useAccessToken();
+
   const { data, loading, error } = useQuery(FETCH_PRODUCTS_BY_PK, {
     variables: { id, _eq: id },
   });
 
-  if (error) return <p>Could not fetch art</p>;
+  const {
+    data: existsData,
+    loading: existsLoading,
+    error: existsError,
+  } = useQuery(PRODUCT_EXISTS_IN_CART, {
+    context: {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    },
+    variables: { _eq: userId, _eq1: id },
+  });
 
-  if (loading) return <TableLoader width='full' />;
+  if (error) return <p>Could not fetch art</p>;
+  if (existsError) return <p>Error</p>;
+
+  if (loading || existsLoading || !data) return <TableLoader width='full' />;
   return (
     <Layout templateTitle='Artists'>
       {loading ? (
@@ -45,7 +68,7 @@ export default function ArtPage() {
                   {data.products_by_pk.categoryByCategory.name}
                 </div>
                 {data.products_by_pk.subCategoryBySubCategory ? (
-                  <div className='badge-secondary badge badge-lg'>
+                  <div className='badge badge-secondary badge-lg'>
                     {data.products_by_pk.subCategoryBySubCategory.name}
                   </div>
                 ) : null}
@@ -92,7 +115,7 @@ export default function ArtPage() {
                     {data.products_by_pk.categoryByCategory.name}
                   </div>
                   {data.products_by_pk.subCategoryBySubCategory ? (
-                    <div className='badge-secondary badge badge-lg'>
+                    <div className='badge badge-secondary badge-lg'>
                       {data.products_by_pk.subCategoryBySubCategory.name}
                     </div>
                   ) : null}
@@ -105,8 +128,19 @@ export default function ArtPage() {
                 <div className='text-4xl font-bold text-primary'>{`Ksh. ${data.products_by_pk.price.toLocaleString()}`}</div>
               </div>
               {/* end */}
-
-              <button className='btn-primary btn-block btn'>Add to cart</button>
+              {existsData && existsData.cart && existsData.cart.length ? (
+                <div className='flex flex-col items-center space-y-2'>
+                  <button
+                    className='btn-outline btn-block btn gap-2'
+                    onClick={() => router.push(CART)}
+                  >
+                    View cart <BsCart />
+                  </button>
+                  <RemoveFromCart productId={data.products_by_pk.id} />
+                </div>
+              ) : (
+                <AddToCart productId={data.products_by_pk.id} quantity={1} />
+              )}
             </div>
           </div>
         </div>

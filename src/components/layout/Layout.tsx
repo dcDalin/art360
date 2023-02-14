@@ -16,7 +16,7 @@ export default function Layout({
     <>
       <Seo templateTitle={templateTitle} />
       <TopNav />
-      <div className='h-screen bg-gray-50 py-4'>
+      <div className='mb-20 h-screen bg-gray-50 pt-4'>
         <ContainerLayout>
           <div>{children}</div>
         </ContainerLayout>

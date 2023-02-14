@@ -1,7 +1,7 @@
 import router from 'next/router';
-import { BsCart3 } from 'react-icons/bs';
 
 import AppLogo from '@/components/AppLogo';
+import CartCounter from '@/components/Cart/CartCounter';
 import ContainerLayout from '@/components/layout/ContainerLayout';
 import TopBannerMessage from '@/components/navigation/TopBannerMessage';
 import UserDropDown from '@/components/navigation/UserDropDown';
@@ -30,12 +30,7 @@ export default function TopNav() {
               <ul className='menu menu-horizontal hidden p-0 md:flex'>
                 <li>
                   <a>
-                    <div className='indicator'>
-                      <span className='badge-secondary badge indicator-item'>
-                        1
-                      </span>
-                      <BsCart3 className='h-5 w-5' />
-                    </div>
+                    <CartCounter />
                   </a>
                 </li>
               </ul>

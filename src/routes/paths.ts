@@ -11,3 +11,4 @@ export const ADMIN_STORE_PRODUCTS = '/admin/store/products';
 
 export const AUTH_LOGIN = '/auth/login';
 export const AUTH_REGISTER = '/auth/register';
+export const CART = '/cart';
