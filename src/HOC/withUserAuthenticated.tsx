@@ -2,6 +2,8 @@ import { useAuthenticationStatus } from '@nhost/nextjs';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
+import TableLoader from '@/components/loaders/TableLoader';
+
 import { AUTH_LOGIN } from '@/routes/paths';
 
 type withUserAuthenticatedFn = (Component: FC) => FC;
@@ -11,7 +13,7 @@ const withUserAuthenticated: withUserAuthenticatedFn = (Component) => {
     const { isAuthenticated, isLoading } = useAuthenticationStatus();
     const router = useRouter();
 
-    if (isLoading) return <>WITH PAGE LOADING</>;
+    if (isLoading) return <TableLoader width='full' />;
 
     if (isAuthenticated) {
       return <Component {...props} />;

@@ -1,4 +1,5 @@
 import ProductsCarousel from '@/components/carousel/ProductsCarousel';
+import SponsorCarousel from '@/components/carousel/SponsorCarousel';
 import FeaturedArtist from '@/components/FeaturedArtist';
 import Layout from '@/components/layout/Layout';
 import ProductCategorySideNav from '@/components/navigation/ProductCategorySideNav';
@@ -11,6 +12,7 @@ export default function HomePage() {
         <ProductsCarousel />
       </div>
       <FeaturedArtist />
+      <SponsorCarousel />
     </Layout>
   );
 }

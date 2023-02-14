@@ -10,7 +10,7 @@ export default function SectionWrapper({
   children,
 }: ISectionWrapperProps) {
   return (
-    <div>
+    <div className='py-4 md:py-10'>
       <div className='flex w-full flex-col items-center'>
         {heading ? <h1 className='text-5xl font-bold'>{heading}</h1> : null}
         {description ? <p className='py-2'>{description}</p> : null}

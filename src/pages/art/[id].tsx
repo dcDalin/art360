@@ -6,9 +6,11 @@ import { BsCart } from 'react-icons/bs';
 import nhost from '@/lib/nhost';
 
 import ArtView from '@/components/cards/ArtViewCard';
+import ProductsCarousel from '@/components/carousel/ProductsCarousel';
 import AddToCart from '@/components/Cart/AddToCart';
 import RemoveFromCart from '@/components/Cart/RemoveFromCart';
 import Layout from '@/components/layout/Layout';
+import SectionWrapper from '@/components/layout/SectionWrapper';
 import TableLoader from '@/components/loaders/TableLoader';
 import NextImage from '@/components/NextImage';
 
@@ -68,7 +70,7 @@ export default function ArtPage() {
                   {data.products_by_pk.categoryByCategory.name}
                 </div>
                 {data.products_by_pk.subCategoryBySubCategory ? (
-                  <div className='badge badge-secondary badge-lg'>
+                  <div className='badge-secondary badge badge-lg'>
                     {data.products_by_pk.subCategoryBySubCategory.name}
                   </div>
                 ) : null}
@@ -115,7 +117,7 @@ export default function ArtPage() {
                     {data.products_by_pk.categoryByCategory.name}
                   </div>
                   {data.products_by_pk.subCategoryBySubCategory ? (
-                    <div className='badge badge-secondary badge-lg'>
+                    <div className='badge-secondary badge badge-lg'>
                       {data.products_by_pk.subCategoryBySubCategory.name}
                     </div>
                   ) : null}
@@ -147,6 +149,11 @@ export default function ArtPage() {
       ) : (
         <p>No data found</p>
       )}
+      <div className='py-10 md:py-20'>
+        <SectionWrapper heading='Art you might like'>
+          <ProductsCarousel />
+        </SectionWrapper>
+      </div>
     </Layout>
   );
 }

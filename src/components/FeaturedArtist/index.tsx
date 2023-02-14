@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
+import router from 'next/router';
 
 import nhost from '@/lib/nhost';
 
@@ -26,21 +27,24 @@ export default function FeaturedArtist() {
                 });
 
                 return (
-                  <div key={id} className='max-w-96 card'>
-                    <figure className='mask mask-square pt-10'>
-                      <NextImage
-                        src={imageUrl}
-                        imgClassName='object-contain w-32 h-32'
-                        useSkeleton
-                        alt='sponsor'
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
+                  <div key={id} className='max-w-96 flex flex-col items-center'>
+                    <NextImage
+                      src={imageUrl}
+                      className='flex items-center justify-center'
+                      imgClassName='object-cover w-32 h-32 mask mask-circle'
+                      useSkeleton
+                      alt='sponsor'
+                      width={150}
+                      height={150}
+                    />
+
                     <div className='card-body items-center py-2 text-center'>
                       <h2 className='card-title'>{`${firstName} ${lastName} - ${nickName}`}</h2>
                       <div className='card-actions'>
-                        <button className='btn-outline btn-primary btn-sm btn'>
+                        <button
+                          className='btn-outline btn-primary btn-sm btn'
+                          onClick={() => router.push(`/artists/${id}`)}
+                        >
                           See bio
                         </button>
                       </div>

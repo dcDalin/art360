@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
+import router from 'next/router';
 
 import nhost from '@/lib/nhost';
 
@@ -18,7 +19,11 @@ export default function ProductsCarousel() {
               fileId: product_images[0].imageId,
             });
             return (
-              <div className='carousel-item' key={id}>
+              <div
+                className='carousel-item cursor-pointer'
+                key={id}
+                onClick={() => router.push(`/art/${id}`)}
+              >
                 <NextImage
                   className='flex w-60 items-center justify-center rounded-t-xl'
                   imgClassName='w-full h-72 object-cover'
