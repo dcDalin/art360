@@ -1,23 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@apollo/client';
 import { useAccessToken } from '@nhost/react';
+import { convertToRaw, EditorState } from 'draft-js';
 import router from 'next/router';
+import { useState } from 'react';
+import { Editor } from 'react-draft-wysiwyg';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 
-import { INSERT_CATEGORIES_ONE } from '@/graphql/categories/mutations';
-import { READ_CATEGORIES } from '@/graphql/categories/queries';
-import { ADMIN_STORE_CATEGORIES } from '@/routes/paths';
+import { INSERT_BLOG_ONE } from '@/graphql/blogs/mutations';
+import { READ_BLOGS } from '@/graphql/blogs/queries';
+import { ADMIN_BLOGS } from '@/routes/paths';
 
 type FormValues = {
-  name: string;
-  description: string;
+  title: string;
+  excerpt: string;
 };
 
-export default function CreateCategoriesProvider() {
+export default function CreateBlogsProvider() {
   const accessToken = useAccessToken();
+
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onEditorStateChange = (editorState: any) => {
+    setEditorState(editorState);
+  };
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
@@ -26,29 +38,30 @@ export default function CreateCategoriesProvider() {
 
   const { handleSubmit } = methods;
 
-  const [insertCategoriesOne, { loading }] = useMutation(
-    INSERT_CATEGORIES_ONE,
-    {
-      refetchQueries: [{ query: READ_CATEGORIES }],
-    }
-  );
+  const [insertBlogOne, { loading }] = useMutation(INSERT_BLOG_ONE, {
+    refetchQueries: [{ query: READ_BLOGS }],
+  });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { name, description } = data;
-
+    const { title, excerpt } = data;
+    const currentContent = editorState.getCurrentContent();
     try {
-      await insertCategoriesOne({
+      await insertBlogOne({
         context: {
           headers: {
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { name, description },
+        variables: {
+          title,
+          excerpt,
+          blog: JSON.stringify(convertToRaw(currentContent)),
+        },
       });
-      toast.success(`${name} category has been added`, {
+      toast.success(`${title} category has been added`, {
         id: 'artist-success',
       });
-      router.replace(ADMIN_STORE_CATEGORIES, undefined, { shallow: true });
+      router.replace(ADMIN_BLOGS, undefined, { shallow: true });
     } catch (error) {
       toast.error('Something went wrong, please try again', { id: 'error' });
     }
@@ -59,36 +72,44 @@ export default function CreateCategoriesProvider() {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-0'>
           <Input
-            id='name'
-            label='Category name'
+            id='title'
+            label='Blog title'
             validation={{
-              required: 'Category name is required',
+              required: 'Blog title is required',
               minLength: {
                 value: 3,
-                message: 'Category name is too short',
+                message: 'Blog title is too short',
               },
               maxLength: {
                 value: 30,
-                message: 'Category name is too long',
+                message: 'Blog title is too long',
               },
             }}
           />
-
           <TextArea
-            id='description'
-            label='Description'
+            id='excerpt'
+            label='Excerpt'
             validation={{
-              required: 'Description is required',
+              required: 'Excerpt is required',
               minLength: {
                 value: 20,
-                message: 'Description is too short',
+                message: 'Excerpt is too short',
               },
               maxLength: {
                 value: 3000,
-                message: 'Description is too long',
+                message: 'Excerpt is too long',
               },
             }}
           />
+          <div className='py-4'>
+            <label className='text-sm'>Write your blog</label>
+            <Editor
+              editorState={editorState}
+              wrapperClassName='wrapperClassName'
+              editorClassName='border border-gray-200 rounded-lg px-2 bg-white'
+              onEditorStateChange={onEditorStateChange}
+            />
+          </div>
 
           <button
             disabled={loading}

@@ -3,11 +3,12 @@ import { BiCategoryAlt } from 'react-icons/bi';
 import { FaPaintBrush } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { MdDraw, MdOutlineCategory } from 'react-icons/md';
-import { SiGithubsponsors } from 'react-icons/si';
+import { SiGithubsponsors, SiWritedotas } from 'react-icons/si';
 
 import {
   ADMIN_ARTISTS,
   ADMIN_ARTISTS_GENRES,
+  ADMIN_BLOGS,
   ADMIN_DASHBOARD,
   ADMIN_SETTINGS,
   ADMIN_SPONSORS,
@@ -22,6 +23,11 @@ export default function useAdminMenu() {
       title: 'Dashboard',
       icon: <AiFillDashboard />,
       path: ADMIN_DASHBOARD,
+    },
+    {
+      title: 'Blogs',
+      icon: <SiWritedotas />,
+      path: ADMIN_BLOGS,
     },
     {
       title: 'Artists Genres',
