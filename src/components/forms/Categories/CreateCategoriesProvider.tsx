@@ -2,9 +2,15 @@
 import { useMutation } from '@apollo/client';
 import { useAccessToken } from '@nhost/react';
 import { convertToRaw, EditorState } from 'draft-js';
+import dynamic from 'next/dynamic';
 import router from 'next/router';
 import { useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
+
+const Editor = dynamic<EditorProps>(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false }
+);
+import { EditorProps } from 'react-draft-wysiwyg';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
