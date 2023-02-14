@@ -24,7 +24,7 @@ export default function CardLayout({
           <div className='card-body'>
             <div className='grid grid-cols-3 items-center'>
               <button
-                className='btn-outline btn btn-sm btn-circle'
+                className='btn-outline btn-sm btn-circle btn'
                 onClick={() => router.push(redirectTo)}
               >
                 <MdOutlineKeyboardBackspace className='text-2xl' />

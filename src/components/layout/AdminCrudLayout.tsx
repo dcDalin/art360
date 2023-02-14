@@ -24,7 +24,7 @@ export default function AdminCrudLayout({
           {previousLink ? (
             <div className='tooltip' data-tip='back'>
               <button
-                className='btn-outline btn btn-sm btn-circle'
+                className='btn-outline btn-sm btn-circle btn'
                 onClick={() =>
                   router.replace(previousLink, undefined, { shallow: true })
                 }
@@ -37,7 +37,7 @@ export default function AdminCrudLayout({
         </div>
         {createButton ? (
           <button
-            className='btn btn-primary btn-sm gap-2 md:btn-md'
+            className='btn-primary btn-sm btn gap-2 md:btn-md'
             onClick={() => router.push(`${pathname}/create`)}
           >
             New

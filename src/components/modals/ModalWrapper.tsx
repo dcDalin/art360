@@ -21,7 +21,7 @@ export default function ModalWrapper({
         <div className='flex items-start justify-between'>
           <h3 className='text-lg font-bold'>{title}</h3>
           <button
-            className='btn-outline btn btn-sm btn-circle'
+            className='btn-outline btn-sm btn-circle btn'
             onClick={closeModal}
           >
             <AiOutlineClose />
