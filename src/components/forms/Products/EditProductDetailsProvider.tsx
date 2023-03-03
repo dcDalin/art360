@@ -8,9 +8,11 @@ import {
 } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
+import CheckBox from '@/components/forms/Elements/CheckBox';
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 
+import { UPDATE_CART_ZERO } from '@/graphql/cart/mutations';
 import { UPDATE_PRODUCT_DESCRIPTION } from '@/graphql/products/mutation';
 import { FETCH_PRODUCTS } from '@/graphql/products/queries';
 
@@ -24,6 +26,7 @@ type FormValues = {
   name: string;
   description: string;
   price: number;
+  isUnique: boolean;
 };
 
 export default function EditProductDetailsProvider({
@@ -32,7 +35,7 @@ export default function EditProductDetailsProvider({
 }: IEditProductDetailsProviderProps) {
   const accessToken = useAccessToken();
 
-  const { id, name, description, price } = data;
+  const { id, name, description, price, isUnique } = data;
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
@@ -41,6 +44,7 @@ export default function EditProductDetailsProvider({
       name,
       description,
       price,
+      isUnique,
     },
   });
 
@@ -57,18 +61,33 @@ export default function EditProductDetailsProvider({
     }
   );
 
+  const [updateCartZero, { loading: cartLoading }] =
+    useMutation(UPDATE_CART_ZERO);
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { name, description, price } = data;
+    const { name, description, price, isUnique } = data;
 
     try {
-      await updateProductDetails({
+      const { data } = await updateProductDetails({
         context: {
           headers: {
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { id, name, description, price },
+        variables: { id, name, description, price, isUnique },
       });
+
+      // update users cart to one if updated to isUnique
+      if (data && isUnique) {
+        await updateCartZero({
+          context: {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          },
+          variables: { _eq: id },
+        });
+      }
 
       toast.success('Product details updated', { id: 'product-updated' });
       closeModal();
@@ -129,11 +148,12 @@ export default function EditProductDetailsProvider({
               },
             }}
           />
+          <CheckBox label='Is Art Unique' id='isUnique' />
 
           <button
-            disabled={loading || !isDirty}
+            disabled={loading || cartLoading || !isDirty}
             className={`btn-primary btn-block btn my-6 ${
-              loading ? 'loading' : null
+              loading || cartLoading ? 'loading' : null
             }`}
             type='submit'
           >

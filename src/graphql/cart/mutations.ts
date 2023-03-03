@@ -33,3 +33,15 @@ export const UPDATE_CART_QUANTITY = gql`
     }
   }
 `;
+
+export const UPDATE_CART_ZERO = gql`
+  mutation updateCartZero($_eq: uuid = "") {
+    update_cart_many(
+      updates: { where: { productId: { _eq: $_eq } }, _set: { quantity: 1 } }
+    ) {
+      returning {
+        id
+      }
+    }
+  }
+`;

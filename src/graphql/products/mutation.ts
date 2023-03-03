@@ -8,6 +8,7 @@ export const INSERT_PRODUCT = gql`
     $name: String
     $price: numeric
     $subCategory: uuid
+    $isUnique: Boolean
   ) {
     insert_products_one(
       object: {
@@ -17,6 +18,7 @@ export const INSERT_PRODUCT = gql`
         name: $name
         price: $price
         subCategory: $subCategory
+        isUnique: $isUnique
       }
     ) {
       id
@@ -30,10 +32,16 @@ export const UPDATE_PRODUCT_DESCRIPTION = gql`
     $name: String = ""
     $price: numeric = ""
     $description: String = ""
+    $isUnique: Boolean
   ) {
     update_products_by_pk(
       pk_columns: { id: $id }
-      _set: { name: $name, price: $price, description: $description }
+      _set: {
+        name: $name
+        price: $price
+        description: $description
+        isUnique: $isUnique
+      }
     ) {
       id
     }

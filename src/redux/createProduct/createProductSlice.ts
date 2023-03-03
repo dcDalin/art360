@@ -5,6 +5,7 @@ interface IFormData {
   name?: string;
   price?: number;
   description?: string;
+  isUnique?: boolean;
 }
 
 export interface ProductFormSlice {
@@ -21,6 +22,7 @@ const initialState: ProductFormSlice = {
     name: '',
     price: 0,
     description: '',
+    isUnique: false,
   },
   selectedCategory: {
     label: '',

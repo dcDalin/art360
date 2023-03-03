@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
 import { useAccessToken, useUserId } from '@nhost/react';
+import router from 'next/router';
 
 import nhost from '@/lib/nhost';
 
@@ -51,6 +52,7 @@ function CartPage() {
                       productPrice={product.price}
                       productImageUrl={productImageUrl}
                       productQuantity={quantity}
+                      productUnique={product.isUnique}
                     />
                   );
                 })}
@@ -62,7 +64,10 @@ function CartPage() {
                     <div className='font-bold'>Subtotal</div>
                     <div className='text-3xl font-bold'>{`${subTotal.toLocaleString()}`}</div>
                   </div>
-                  <button className='btn-primary btn-block btn'>
+                  <button
+                    className='btn-primary btn-block btn'
+                    onClick={() => router.push('/checkout/shipping')}
+                  >
                     Check out
                   </button>
                 </div>

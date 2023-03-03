@@ -32,6 +32,7 @@ export const CART_SUMMARY = gql`
         name
         price
         id
+        isUnique
         product_images {
           id
           imageId

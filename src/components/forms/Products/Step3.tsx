@@ -88,6 +88,7 @@ export default function Step3() {
           name: formData.name,
           price: formData.price,
           subCategory: selectedSubCategory.value,
+          isUnique: formData.isUnique,
         },
       });
 

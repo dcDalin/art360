@@ -18,6 +18,7 @@ interface ICartSummaryItem {
   productPrice: number;
   productImageUrl: string;
   productQuantity: number;
+  productUnique: boolean;
 }
 
 export default function CartSummaryItem({
@@ -27,6 +28,7 @@ export default function CartSummaryItem({
   productImageUrl,
   productQuantity,
   cartItemId,
+  productUnique,
 }: ICartSummaryItem) {
   const userId = useUserId();
   const accessToken = useAccessToken();
@@ -72,7 +74,7 @@ export default function CartSummaryItem({
 
   return (
     <div className='border-b border-gray-300 py-4'>
-      <div className='flex items-center space-x-4 py-2'>
+      <div className='flex items-center space-x-2 py-2 md:space-x-4'>
         <NextImage
           imgClassName='w-24 h-24 object-cover'
           src={productImageUrl}
@@ -80,7 +82,7 @@ export default function CartSummaryItem({
           width={96}
           height={96}
         />
-        <div className='w-full'>{productName}</div>
+        <div className='flex-1'>{productName}</div>
         <div className='flex flex-col items-end'>
           <div className='font-semibold'>Ksh.</div>
           <div className='text-3xl font-bold'>{`${productPrice.toLocaleString()}`}</div>
@@ -89,23 +91,25 @@ export default function CartSummaryItem({
 
       <div className='flex items-center justify-between'>
         <RemoveFromCart small={true} productId={productId} />
-        <div className='flex items-center space-x-2'>
-          <button
-            className='btn-outline btn-sm btn'
-            disabled={productQuantity <= 1 || loading}
-            onClick={() => handleUpdateCartQuantity(productQuantity - 1)}
-          >
-            -
-          </button>
-          <div>{productQuantity}</div>
-          <button
-            className='btn-outline btn-sm btn'
-            onClick={() => handleUpdateCartQuantity(productQuantity + 1)}
-            disabled={loading}
-          >
-            +
-          </button>
-        </div>
+        {productUnique ? null : (
+          <div className='flex items-center space-x-2'>
+            <button
+              className='btn-outline btn-sm btn'
+              disabled={productQuantity <= 1 || loading}
+              onClick={() => handleUpdateCartQuantity(productQuantity - 1)}
+            >
+              -
+            </button>
+            <div>{productQuantity}</div>
+            <button
+              className='btn-outline btn-sm btn'
+              onClick={() => handleUpdateCartQuantity(productQuantity + 1)}
+              disabled={loading}
+            >
+              +
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

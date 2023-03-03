@@ -1,6 +1,7 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CheckBox from '@/components/forms/Elements/CheckBox';
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 
@@ -14,13 +15,14 @@ type FormValues = {
   name: string;
   description: string;
   price: number;
+  isUnique: boolean;
 };
 
 export default function Step1() {
   const dispatch = useDispatch();
 
   const {
-    formData: { name, description, price },
+    formData: { name, description, price, isUnique },
   } = useSelector((state: RootState) => state.createProduct);
 
   const methods = useForm<FormValues>({
@@ -30,16 +32,17 @@ export default function Step1() {
       name,
       description,
       price,
+      isUnique,
     },
   });
 
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { name, description, price } = data;
+    const { name, description, price, isUnique } = data;
 
     dispatch(changeActiveStep(2));
-    return dispatch(handleFormData({ name, description, price }));
+    return dispatch(handleFormData({ name, description, price, isUnique }));
   };
 
   return (
@@ -95,6 +98,8 @@ export default function Step1() {
             }}
           />
 
+          <CheckBox id='isUnique' label='Unique Art' type='checkbox' />
+          <br />
           <button className='btn-primary btn my-6' type='submit'>
             next
           </button>

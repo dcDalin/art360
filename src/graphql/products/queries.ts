@@ -45,6 +45,7 @@ export const FETCH_PRODUCTS_BY_PK = gql`
       isDraft
       name
       price
+      isUnique
       product_images(where: { productId: { _eq: $_eq } }) {
         id
         imageId
