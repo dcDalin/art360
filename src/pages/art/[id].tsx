@@ -29,21 +29,19 @@ export default function ArtPage() {
     variables: { id, _eq: id },
   });
 
-  const {
-    data: existsData,
-    loading: existsLoading,
-    error: existsError,
-  } = useQuery(PRODUCT_EXISTS_IN_CART, {
-    context: {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
+  const { data: existsData, loading: existsLoading } = useQuery(
+    PRODUCT_EXISTS_IN_CART,
+    {
+      context: {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
       },
-    },
-    variables: { _eq: userId, _eq1: id },
-  });
+      variables: { _eq: userId, _eq1: id },
+    }
+  );
 
   if (error) return <p>Could not fetch art</p>;
-  if (existsError) return <p>Error</p>;
 
   if (loading || existsLoading || !data) return <TableLoader width='full' />;
   return (

@@ -18,11 +18,17 @@ export default function TopNav() {
             </div>
             <div className='flex-none gap-0'>
               <ul className='menu menu-horizontal p-0'>
+                <li onClick={() => router.push('/about')}>
+                  <a>About</a>
+                </li>
                 <li onClick={() => router.push('/artists')}>
                   <a>Artists</a>
                 </li>
                 <li onClick={() => router.push('/art')}>
                   <a>Art</a>
+                </li>
+                <li onClick={() => router.push('/blogs')}>
+                  <a>Blogs</a>
                 </li>
               </ul>
 

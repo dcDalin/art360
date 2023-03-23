@@ -11,3 +11,16 @@ export const READ_BLOGS = gql`
     }
   }
 `;
+
+export const READ_BLOGS_BY_PK = gql`
+  query MyQuery($id: uuid = "") {
+    blogs_by_pk(id: $id) {
+      blog
+      createdAt
+      excerpt
+      id
+      title
+      updatedAt
+    }
+  }
+`;
