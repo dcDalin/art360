@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation, useQuery } from '@apollo/client';
-import { useAccessToken } from '@nhost/react';
+import { useAccessToken } from '@nhost/nextjs';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Select from 'react-select';

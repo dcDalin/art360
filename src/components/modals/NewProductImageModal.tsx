@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useAccessToken, useFileUpload } from '@nhost/react';
+import { useAccessToken, useFileUpload } from '@nhost/nextjs';
 import router from 'next/router';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';
@@ -102,7 +102,7 @@ export default function NewProductImageModal({
         ) : (
           <button
             onClick={handleSubmit}
-            className={`btn btn-primary my-4 ${
+            className={`btn-primary btn my-4 ${
               isUploading || loading ? 'loading' : ''
             }`}
             disabled={isUploading || loading}

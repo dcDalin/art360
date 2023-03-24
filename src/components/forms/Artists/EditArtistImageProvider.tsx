@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useAccessToken, useFileUpload } from '@nhost/react';
+import { useAccessToken, useFileUpload } from '@nhost/nextjs';
 import router from 'next/router';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useAccessToken, useUserId } from '@nhost/react';
+import { useAccessToken, useUserId } from '@nhost/nextjs';
 import router from 'next/router';
 import { BsCart3 } from 'react-icons/bs';
 

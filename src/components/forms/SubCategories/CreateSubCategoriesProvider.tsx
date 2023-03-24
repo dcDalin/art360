@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { useAccessToken } from '@nhost/react';
+import { useAccessToken } from '@nhost/nextjs';
 import router from 'next/router';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';

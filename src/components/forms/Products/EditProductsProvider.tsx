@@ -142,9 +142,13 @@ export default function EditProductsProvider({
           {data.product_images && data.product_images.length ? (
             data.product_images.map(
               ({ imageId, id }: { imageId: string; id: string }) => {
-                const productImageUrl = nhost.storage.getPublicUrl({
-                  fileId: imageId,
-                });
+                let productImageUrl = '';
+
+                if (imageId) {
+                  productImageUrl = nhost.storage.getPublicUrl({
+                    fileId: imageId,
+                  });
+                }
 
                 return (
                   <figure key={id} className='mask mask-square'>

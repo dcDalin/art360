@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
-import { useAccessToken, useUserId } from '@nhost/react';
+import { useAccessToken, useUserId } from '@nhost/nextjs';
 import router from 'next/router';
 
 import nhost from '@/lib/nhost';
@@ -37,9 +37,17 @@ function CartPage() {
             <div className='flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-8 md:space-y-0'>
               <div className='w-full rounded-md bg-base-100 p-4'>
                 {data.cart.map(({ id, product, quantity }: any) => {
-                  const productImageUrl = nhost.storage.getPublicUrl({
-                    fileId: product.product_images[0].imageId,
-                  });
+                  let productImageUrl = '';
+
+                  if (
+                    product.product_images &&
+                    product.product_images.length &&
+                    product.product_images[0].imageId
+                  ) {
+                    productImageUrl = nhost.storage.getPublicUrl({
+                      fileId: product.product_images[0].imageId,
+                    });
+                  }
 
                   const total = quantity * product.price;
                   subTotal += total;

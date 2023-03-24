@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@apollo/client';
-import { useAccessToken } from '@nhost/react';
+import { useAccessToken } from '@nhost/nextjs';
 import { convertToRaw, EditorState } from 'draft-js';
 import dynamic from 'next/dynamic';
 import router from 'next/router';

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
-import { useAccessToken, useUserId } from '@nhost/react';
+import { useAccessToken, useUserId } from '@nhost/nextjs';
 
 import Layout from '@/components/layout/Layout';
 import SectionWrapper from '@/components/layout/SectionWrapper';

@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useAccessToken, useUserId } from '@nhost/react';
+import { useAccessToken, useUserId } from '@nhost/nextjs';
 import toast from 'react-hot-toast';
 import { BsCartXFill } from 'react-icons/bs';
 

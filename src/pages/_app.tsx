@@ -1,4 +1,4 @@
-import { NhostNextProvider } from '@nhost/nextjs';
+import { NhostProvider } from '@nhost/nextjs';
 import { NhostApolloProvider } from '@nhost/react-apollo';
 import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
@@ -13,12 +13,12 @@ import nhost from '@/lib/nhost';
 import ImageUploadProvider from '@/context/ImageUploadContext';
 import { wrapper } from '@/redux/store';
 
-function MyApp({ Component, ...rest }: AppProps) {
+function MyApp({ Component, pageProps, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
 
   return (
     <Provider store={store}>
-      <NhostNextProvider nhost={nhost} initial={props.pageProps.nhostSession}>
+      <NhostProvider nhost={nhost} initial={pageProps.nhostSession}>
         <NhostApolloProvider nhost={nhost}>
           <ImageUploadProvider>
             <NextNProgress />
@@ -26,7 +26,7 @@ function MyApp({ Component, ...rest }: AppProps) {
             <Toaster />
           </ImageUploadProvider>
         </NhostApolloProvider>
-      </NhostNextProvider>
+      </NhostProvider>
     </Provider>
   );
 }

@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useAccessToken } from '@nhost/react';
+import { useAccessToken } from '@nhost/nextjs';
 import router from 'next/router';
 import toast from 'react-hot-toast';
 import { CiWarning } from 'react-icons/ci';

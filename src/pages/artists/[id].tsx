@@ -64,9 +64,17 @@ export default function Artist() {
                   data.artists_by_pk.products.map(
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ({ id, name, price, product_images }: any) => {
-                      const productImageUrl = nhost.storage.getPublicUrl({
-                        fileId: product_images[0].imageId,
-                      });
+                      let productImageUrl = '';
+
+                      if (
+                        product_images &&
+                        product_images.length &&
+                        product_images[0].imageId
+                      ) {
+                        productImageUrl = nhost.storage.getPublicUrl({
+                          fileId: product_images[0].imageId,
+                        });
+                      }
                       return (
                         <div key={id} className='w-36'>
                           <ProductCard

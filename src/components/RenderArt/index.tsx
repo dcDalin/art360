@@ -51,9 +51,18 @@ export default function RenderArt() {
     <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
       {data && data.products && data.products.length ? (
         data.products.map(({ name, id, product_images, price }: any) => {
-          const productImageUrl = nhost.storage.getPublicUrl({
-            fileId: product_images[0].imageId,
-          });
+          let productImageUrl = '';
+
+          if (
+            product_images &&
+            product_images.length &&
+            product_images[0].imageId
+          ) {
+            productImageUrl = nhost.storage.getPublicUrl({
+              fileId: product_images[0].imageId,
+            });
+          }
+
           return (
             <ProductCard
               key={id}
