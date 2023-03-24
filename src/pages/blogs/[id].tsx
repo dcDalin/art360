@@ -24,7 +24,7 @@ export default function BlogPage() {
       {loading ? (
         <TableLoader width='full' />
       ) : data && data.blogs_by_pk ? (
-        <div>
+        <div className='px-8'>
           <h1 className='text-4xl font-bold'>{data.blogs_by_pk.title}</h1>
           <p className='py-2'>
             {data.blogs_by_pk.blog ? data.blogs_by_pk.blog : ''}

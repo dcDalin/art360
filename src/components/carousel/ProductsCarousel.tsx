@@ -15,9 +15,18 @@ export default function ProductsCarousel() {
     <div className='carousel-center carousel w-full space-x-4 rounded-sm bg-neutral p-4'>
       {data && data.products && data.products.length
         ? data.products.map(({ id, product_images }: any) => {
-            const productImageUrl = nhost.storage.getPublicUrl({
-              fileId: product_images[0].imageId,
-            });
+            let productImageUrl = '';
+
+            if (
+              product_images &&
+              product_images.length &&
+              product_images[0].imageId
+            ) {
+              productImageUrl = nhost.storage.getPublicUrl({
+                fileId: product_images[0].imageId,
+              });
+            }
+
             return (
               <div
                 className='carousel-item cursor-pointer'
