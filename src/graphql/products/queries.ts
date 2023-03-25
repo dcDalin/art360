@@ -15,6 +15,7 @@ export const FETCH_PRODUCTS = gql`
       name
       description
       price
+      priceFrame
       product_images {
         imageId
       }
@@ -45,6 +46,7 @@ export const FETCH_PRODUCTS_BY_PK = gql`
       isDraft
       name
       price
+      priceFrame
       isUnique
       product_images(where: { productId: { _eq: $_eq } }) {
         id
@@ -64,6 +66,7 @@ export const FETCH_NEW_PRODUCTS = gql`
       id
       name
       price
+      priceFrame
       product_images(limit: 1) {
         imageId
       }
@@ -76,6 +79,7 @@ export const FETCH_PRODUCTS_FILTER_SORT_PAGINATE = gql`
     products(order_by: { createdAt: desc }, where: $condition) {
       name
       price
+      priceFrame
       id
       product_images(limit: 1) {
         id

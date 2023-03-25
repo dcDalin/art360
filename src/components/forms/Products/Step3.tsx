@@ -87,6 +87,7 @@ export default function Step3() {
           description: formData.description,
           name: formData.name,
           price: formData.price,
+          priceFrame: formData.priceFrame,
           subCategory: selectedSubCategory.value,
           isUnique: formData.isUnique,
         },

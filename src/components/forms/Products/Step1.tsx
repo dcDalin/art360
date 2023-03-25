@@ -15,6 +15,7 @@ type FormValues = {
   name: string;
   description: string;
   price: number;
+  priceFrame: number;
   isUnique: boolean;
 };
 
@@ -22,7 +23,7 @@ export default function Step1() {
   const dispatch = useDispatch();
 
   const {
-    formData: { name, description, price, isUnique },
+    formData: { name, description, price, priceFrame, isUnique },
   } = useSelector((state: RootState) => state.createProduct);
 
   const methods = useForm<FormValues>({
@@ -32,6 +33,7 @@ export default function Step1() {
       name,
       description,
       price,
+      priceFrame,
       isUnique,
     },
   });
@@ -39,10 +41,12 @@ export default function Step1() {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { name, description, price, isUnique } = data;
+    const { name, description, price, priceFrame, isUnique } = data;
 
     dispatch(changeActiveStep(2));
-    return dispatch(handleFormData({ name, description, price, isUnique }));
+    return dispatch(
+      handleFormData({ name, description, price, priceFrame, isUnique })
+    );
   };
 
   return (
@@ -68,7 +72,24 @@ export default function Step1() {
           <Input
             id='price'
             type='number'
-            label='Product price'
+            label='Product price (Without frame)'
+            validation={{
+              required: 'Product price is required',
+              min: {
+                value: 10,
+                message: 'Price is too low',
+              },
+              maxLength: {
+                value: 1000000,
+                message: 'Price is too high',
+              },
+            }}
+          />
+
+          <Input
+            id='priceFrame'
+            type='number'
+            label='Product price (With frame)'
             validation={{
               required: 'Product price is required',
               min: {

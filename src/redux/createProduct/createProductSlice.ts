@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface IFormData {
   name?: string;
   price?: number;
+  priceFrame?: number;
   description?: string;
   isUnique?: boolean;
 }
@@ -21,6 +22,7 @@ const initialState: ProductFormSlice = {
   formData: {
     name: '',
     price: 0,
+    priceFrame: 0,
     description: '',
     isUnique: false,
   },

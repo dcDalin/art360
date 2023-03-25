@@ -26,6 +26,7 @@ type FormValues = {
   name: string;
   description: string;
   price: number;
+  priceFrame: number;
   isUnique: boolean;
 };
 
@@ -35,7 +36,7 @@ export default function EditProductDetailsProvider({
 }: IEditProductDetailsProviderProps) {
   const accessToken = useAccessToken();
 
-  const { id, name, description, price, isUnique } = data;
+  const { id, name, description, price, priceFrame, isUnique } = data;
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
@@ -44,6 +45,7 @@ export default function EditProductDetailsProvider({
       name,
       description,
       price,
+      priceFrame,
       isUnique,
     },
   });
@@ -65,7 +67,7 @@ export default function EditProductDetailsProvider({
     useMutation(UPDATE_CART_ZERO);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { name, description, price, isUnique } = data;
+    const { name, description, price, priceFrame, isUnique } = data;
 
     try {
       const { data } = await updateProductDetails({
@@ -74,7 +76,7 @@ export default function EditProductDetailsProvider({
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { id, name, description, price, isUnique },
+        variables: { id, name, description, price, priceFrame, isUnique },
       });
 
       // update users cart to one if updated to isUnique
@@ -120,6 +122,23 @@ export default function EditProductDetailsProvider({
             id='price'
             type='number'
             label='Product price'
+            validation={{
+              required: 'Product price is required',
+              min: {
+                value: 10,
+                message: 'Price is too low',
+              },
+              maxLength: {
+                value: 1000000,
+                message: 'Price is too high',
+              },
+            }}
+          />
+
+          <Input
+            id='priceFrame'
+            type='number'
+            label='Product price (With frame)'
             validation={{
               required: 'Product price is required',
               min: {
