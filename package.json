@@ -61,6 +61,7 @@
     "@types/react": "^18.0.25",
     "@types/react-draft-wysiwyg": "^1.13.4",
     "@types/react-table": "^7.7.14",
+    "@types/regenerator-runtime": "^0.13.1",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "and": "^0.0.3",

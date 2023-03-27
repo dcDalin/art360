@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { useAsyncDebounce } from 'react-table';
+import 'regenerator-runtime';
 
 interface IGlobalFilterProps {
   preGlobalFilteredRows: any;
