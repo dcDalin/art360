@@ -50,7 +50,9 @@ export default function CreateCategoriesProvider() {
       });
       router.replace(ADMIN_STORE_CATEGORIES, undefined, { shallow: true });
     } catch (error) {
-      toast.error('Something went wrong, please try again', { id: 'error' });
+      toast.error('Could not create category, please try again', {
+        id: 'error',
+      });
     }
   };
 

@@ -39,7 +39,7 @@ export default function Artist() {
           <div className='flex w-full items-center justify-center'>
             <NextImage
               className='flex items-center justify-center'
-              imgClassName='w-24 h-24 object-cover rounded-full'
+              imgClassName='w-36 h-36 object-cover rounded-full'
               src={imageUrl}
               alt='artist'
               width={1000}
@@ -53,7 +53,7 @@ export default function Artist() {
             <div className='flex space-x-8'>
               <ProductCategorySideNav />
 
-              <div>{data.artists_by_pk.bio}</div>
+              <div className='text-lg'>{data.artists_by_pk.bio}</div>
             </div>
             <SectionWrapper
               description={`Art made by ${data.artists_by_pk.nickName}`}

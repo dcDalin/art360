@@ -1,13 +1,18 @@
 import router from 'next/router';
 
-interface IAppLogoProps {
-  className?: string;
-}
+import NextImage from '@/components/NextImage';
 
-export default function AppLogo({ className = 'text-neutral' }: IAppLogoProps) {
+export default function AppLogo() {
   return (
     <div className='cursor-pointer' onClick={() => router.push('/')}>
-      <h1 className={className}>Art360</h1>
+      <NextImage
+        imgClassName='w-24 h-24 object-contain'
+        className='object-contain'
+        src='/images/logo.jpeg'
+        alt='artist'
+        width={100}
+        height={50}
+      />
     </div>
   );
 }

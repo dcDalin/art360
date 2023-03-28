@@ -3,13 +3,11 @@ import router from 'next/router';
 import AppLogo from '@/components/AppLogo';
 import CartCounter from '@/components/Cart/CartCounter';
 import ContainerLayout from '@/components/layout/ContainerLayout';
-import TopBannerMessage from '@/components/navigation/TopBannerMessage';
 import UserDropDown from '@/components/navigation/UserDropDown';
 
 export default function TopNav() {
   return (
     <>
-      <TopBannerMessage />
       <div className='bg-base-100'>
         <ContainerLayout>
           <div className='navbar bg-base-100 px-0'>

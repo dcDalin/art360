@@ -15,7 +15,10 @@ const withAdminAuthenticated: withAdminAuthenticatedFn = (Component) => {
 
     if (isLoading) return <>Loading...</>;
 
-    if (isAuthenticated && userData?.roles.includes('staff')) {
+    if (
+      (isAuthenticated && userData?.roles.includes('staff')) ||
+      (isAuthenticated && userData?.roles.includes('staff-admin'))
+    ) {
       return <Component {...props} />;
     }
 

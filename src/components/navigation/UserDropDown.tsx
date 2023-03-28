@@ -69,7 +69,8 @@ export default function UserDropDown() {
                 <li>
                   <a>Settings</a>
                 </li>
-                {isAuthenticated && userData?.roles.includes('staff') ? (
+                {(isAuthenticated && userData?.roles.includes('staff')) ||
+                (isAuthenticated && userData?.roles.includes('staff-admin')) ? (
                   <>
                     <div className='divider m-0'></div>
                     <DropDownLink

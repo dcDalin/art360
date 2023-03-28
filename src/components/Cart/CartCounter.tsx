@@ -30,7 +30,7 @@ export default function CartCounter() {
   return (
     <>
       {loading ? (
-        <TableLoader />
+        <TableLoader size='sm' />
       ) : data && data.cart_aggregate && data.cart_aggregate.aggregate ? (
         <div className='indicator' onClick={() => router.push(CART)}>
           <span className='badge-secondary badge indicator-item'>
