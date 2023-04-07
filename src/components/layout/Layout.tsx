@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import Footer from '@/components/Footer';
 import ContainerLayout from '@/components/layout/ContainerLayout';
-import MobileBottomNav from '@/components/navigation/MobileBottomNav';
 import TopNav from '@/components/navigation/TopNav';
 import Seo from '@/components/Seo';
 
@@ -21,9 +20,8 @@ export default function Layout({
         <ContainerLayout>
           <div>{children}</div>
         </ContainerLayout>
+        <Footer />
       </div>
-      <Footer />
-      <MobileBottomNav />
     </>
   );
 }
