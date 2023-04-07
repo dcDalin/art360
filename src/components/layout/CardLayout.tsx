@@ -31,7 +31,7 @@ export default function CardLayout({
               </button>
 
               <div className='text-center'>
-                <AppLogo className='text-black' />
+                <AppLogo />
               </div>
               <div></div>
             </div>
