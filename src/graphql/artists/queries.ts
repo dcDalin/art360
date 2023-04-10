@@ -24,6 +24,30 @@ export const READ_ARTISTS = gql`
   }
 `;
 
+export const READ_ARTISTS_FILTER = gql`
+  query readArtists($condition: artists_bool_exp!) {
+    artists(order_by: { createdAt: desc }, where: $condition) {
+      bio
+      createdAt
+      facebook
+      firstName
+      id
+      imageId
+      instagram
+      isFeatured
+      lastName
+      nickName
+      phoneNumber
+      artists_genres_pivots {
+        artist_genre {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 export const READ_ARTIST_BY_PK = gql`
   query readArtistByPk($id: uuid = "") {
     artists_by_pk(id: $id) {
