@@ -1,39 +1,36 @@
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
-import EditCategoriesProvider from '@/components/forms/Categories/EditCategoriesProvider';
 import AdminCrudLayout from '@/components/layout/AdminCrudLayout';
 import AdminLayout from '@/components/layout/AdminLayout';
 import TableLoader from '@/components/loaders/TableLoader';
 
-import { READ_CATEGORIES_BY_PK } from '@/graphql/categories/queries';
+import { READ_BLOGS_BY_PK } from '@/graphql/blogs/queries';
 import withAdminAuthenticated from '@/HOC/withAdminAuthenticated';
-import { ADMIN_STORE_CATEGORIES } from '@/routes/paths';
+import { ADMIN_BLOGS } from '@/routes/paths';
 
-function EditCategoriesPage() {
+function EditBlogsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, loading, error } = useQuery(READ_CATEGORIES_BY_PK, {
+  const { loading, error } = useQuery(READ_BLOGS_BY_PK, {
     variables: { id },
   });
 
   return (
-    <AdminLayout templateTitle='Edit Product Category'>
-      <AdminCrudLayout
-        title='Edit Product Category'
-        previousLink={ADMIN_STORE_CATEGORIES}
-      >
+    <AdminLayout templateTitle='Edit Blog Category'>
+      <AdminCrudLayout title='Edit Blog Category' previousLink={ADMIN_BLOGS}>
         {loading ? (
           <TableLoader />
         ) : error ? (
-          <p>Product category not found</p>
+          <p>Blog not found</p>
         ) : (
-          <EditCategoriesProvider data={data.categories_by_pk} />
+          // <EditBlogsProvider data={data.blogs_by_pk} />
+          <></>
         )}
       </AdminCrudLayout>
     </AdminLayout>
   );
 }
 
-export default withAdminAuthenticated(EditCategoriesPage);
+export default withAdminAuthenticated(EditBlogsPage);

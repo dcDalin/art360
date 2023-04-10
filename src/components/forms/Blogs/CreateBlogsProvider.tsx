@@ -2,6 +2,7 @@
 import { useMutation } from '@apollo/client';
 import { useAccessToken } from '@nhost/nextjs';
 import { convertToRaw, EditorState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import dynamic from 'next/dynamic';
 import router from 'next/router';
 import { useState } from 'react';
@@ -61,7 +62,7 @@ export default function CreateBlogsProvider() {
         variables: {
           title,
           excerpt,
-          blog: JSON.stringify(convertToRaw(currentContent)),
+          blog: draftToHtml(convertToRaw(currentContent)),
         },
       });
       toast.success(`${title} category has been added`, {

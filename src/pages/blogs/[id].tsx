@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import DOMPurify from 'dompurify';
 import { useRouter } from 'next/router';
 
 import ProductsCarousel from '@/components/carousel/ProductsCarousel';
@@ -19,6 +20,13 @@ export default function BlogPage() {
   if (error) return <p>Could not fetch blog</p>;
 
   if (loading) return <TableLoader width='full' />;
+
+  function createMarkup(html: string | Node) {
+    return {
+      __html: DOMPurify.sanitize(html),
+    };
+  }
+
   return (
     <Layout templateTitle='Blog'>
       {loading ? (
@@ -26,9 +34,10 @@ export default function BlogPage() {
       ) : data && data.blogs_by_pk ? (
         <div className='px-8'>
           <h1 className='text-4xl font-bold'>{data.blogs_by_pk.title}</h1>
-          <p className='py-2'>
-            {data.blogs_by_pk.blog ? data.blogs_by_pk.blog : ''}
-          </p>
+          <div
+            className='preview'
+            dangerouslySetInnerHTML={createMarkup(data.blogs_by_pk.blog)}
+          ></div>
         </div>
       ) : (
         <p>No data found</p>

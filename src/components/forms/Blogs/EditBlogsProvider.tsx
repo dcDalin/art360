@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@apollo/client';
 import { useAccessToken } from '@nhost/nextjs';
+import dynamic from 'next/dynamic';
 import router from 'next/router';
+import { useState } from 'react';
+import { EditorProps, EditorState } from 'react-draft-wysiwyg';
 import {
   FormProvider,
   SubmitHandler,
@@ -12,35 +16,45 @@ import toast from 'react-hot-toast';
 import Input from '@/components/forms/Elements/Input';
 import TextArea from '@/components/forms/Elements/TextArea';
 
-import { UPDATE_CATEGORIES_BY_PK } from '@/graphql/categories/mutations';
-import { READ_CATEGORIES } from '@/graphql/categories/queries';
+import { UPDATE_BLOG_ONE } from '@/graphql/blogs/mutations';
+import { READ_BLOGS } from '@/graphql/blogs/queries';
 import { ADMIN_STORE_CATEGORIES } from '@/routes/paths';
+const Editor = dynamic<EditorProps>(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false }
+);
 
-interface IEditCategoriesProviderProps {
+interface IEditBlogsProviderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
 }
 
 type FormValues = {
-  name: string;
-  description: string;
+  title: string;
+  excerpt: string;
+  blog: string;
 };
 
-export default function EditCategoriesProvider({
-  data,
-}: IEditCategoriesProviderProps) {
+export default function EditBlogsProvider({ data }: IEditBlogsProviderProps) {
   const accessToken = useAccessToken();
 
-  const { id, name, description } = data;
+  const { id, title, excerpt, blog } = data;
+
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const methods = useForm<FormValues>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
     defaultValues: {
-      name,
-      description,
+      title,
+      excerpt,
+      blog,
     },
   });
+
+  const onEditorStateChange = (editorState: any) => {
+    setEditorState(editorState);
+  };
 
   const { handleSubmit, control } = methods;
 
@@ -48,26 +62,23 @@ export default function EditCategoriesProvider({
     control,
   });
 
-  const [updateCategoriesByPk, { loading }] = useMutation(
-    UPDATE_CATEGORIES_BY_PK,
-    {
-      refetchQueries: [{ query: READ_CATEGORIES }],
-    }
-  );
+  const [updateBlogByPk, { loading }] = useMutation(UPDATE_BLOG_ONE, {
+    refetchQueries: [{ query: READ_BLOGS }],
+  });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { name, description } = data;
+    const { title, excerpt } = data;
 
     try {
-      await updateCategoriesByPk({
+      await updateBlogByPk({
         context: {
           headers: {
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { id, name, description },
+        variables: { id, title, excerpt },
       });
-      toast.success('Product category updated', { id: 'artist-updated' });
+      toast.success('Blog updated', { id: 'artist-updated' });
       router.replace(ADMIN_STORE_CATEGORIES, undefined, { shallow: true });
     } catch (error) {
       toast.error('Something went wrong, please try again', { id: 'error' });
@@ -79,37 +90,44 @@ export default function EditCategoriesProvider({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-0'>
           <Input
-            id='name'
-            label='Genre name'
+            id='title'
+            label='Blog title'
             validation={{
-              required: 'Genre name is required',
+              required: 'Blog title is required',
               minLength: {
                 value: 3,
-                message: 'Genre name is too short',
+                message: 'Blog title is too short',
               },
               maxLength: {
                 value: 30,
-                message: 'Genre name is too long',
+                message: 'Blog title is too long',
               },
             }}
           />
-
           <TextArea
-            id='description'
-            label='Description'
+            id='excerpt'
+            label='Excerpt'
             validation={{
-              required: 'Description is required',
+              required: 'Excerpt is required',
               minLength: {
                 value: 20,
-                message: 'Description is too short',
+                message: 'Excerpt is too short',
               },
               maxLength: {
                 value: 3000,
-                message: 'Description is too long',
+                message: 'Excerpt is too long',
               },
             }}
           />
-
+          <div className='py-4'>
+            <label className='text-sm'>Write your blog</label>
+            <Editor
+              editorState={editorState}
+              wrapperClassName='wrapperClassName'
+              editorClassName='border border-gray-200 rounded-lg px-2 bg-white'
+              onEditorStateChange={onEditorStateChange}
+            />
+          </div>
           <button
             disabled={loading || !isDirty}
             className={`btn-primary btn-block btn my-6 ${

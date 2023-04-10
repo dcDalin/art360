@@ -1,3 +1,4 @@
+import CreateBlogsProvider from '@/components/forms/Blogs/CreateBlogsProvider';
 import AdminCrudLayout from '@/components/layout/AdminCrudLayout';
 import AdminLayout from '@/components/layout/AdminLayout';
 
@@ -8,7 +9,7 @@ function CreateBlogPage() {
   return (
     <AdminLayout templateTitle='Create Blog'>
       <AdminCrudLayout title='Create Blog' previousLink={ADMIN_BLOGS}>
-        {/* <CreateBlogsProvider /> */}
+        <CreateBlogsProvider />
       </AdminCrudLayout>
     </AdminLayout>
   );

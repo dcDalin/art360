@@ -13,3 +13,21 @@ export const INSERT_BLOG_ONE = gql`
     }
   }
 `;
+
+export const UPDATE_BLOG_ONE = gql`
+  mutation MyMutation(
+    $id: uuid = ""
+    $blog: String = ""
+    $excerpt: String = ""
+    $title: String = ""
+  ) {
+    update_blogs_by_pk(
+      pk_columns: { id: $id }
+      _set: { blog: $blog, excerpt: $excerpt, title: $title }
+    ) {
+      blog
+      excerpt
+      title
+    }
+  }
+`;
