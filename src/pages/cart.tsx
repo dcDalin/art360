@@ -33,7 +33,7 @@ function CartPage() {
         <div className='p-0 md:p-4'>
           {loading ? (
             <TableLoader width='full' />
-          ) : data && data.cart ? (
+          ) : data && data.cart && data.cart.length ? (
             <div className='flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-8 md:space-y-0'>
               <div className='w-full rounded-md bg-base-100 p-4'>
                 {data.cart.map(({ id, product, quantity }: any) => {
@@ -81,7 +81,11 @@ function CartPage() {
                 </div>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className='h-screen'>
+              <p>No items found in your cart</p>
+            </div>
+          )}
         </div>
       </SectionWrapper>
     </Layout>

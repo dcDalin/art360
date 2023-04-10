@@ -6,8 +6,8 @@ export default function AppLogo() {
   return (
     <div className='cursor-pointer' onClick={() => router.push('/')}>
       <NextImage
-        imgClassName='w-24 h-24 object-contain'
-        className='object-contain'
+        imgClassName='w-14 h-14 md:w-24 md:h-24 object-contain'
+        className='flex items-center justify-center object-contain'
         src='/images/logo.jpeg'
         alt='artist'
         width={100}

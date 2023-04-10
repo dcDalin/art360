@@ -21,12 +21,14 @@ export default function CartCounter() {
     variables: { _eq: userId },
   });
 
-  if (error)
+  if (error) {
     return (
       <div onClick={() => router.push(CART)}>
         <BsCart3 className='h-5 w-5' />
       </div>
     );
+  }
+
   return (
     <>
       {loading ? (

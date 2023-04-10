@@ -7,7 +7,6 @@ import {
 } from '@nhost/nextjs';
 import { useRouter } from 'next/router';
 import { AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
-import { GiShoppingCart } from 'react-icons/gi';
 import { HiOutlineChevronDown } from 'react-icons/hi';
 import { RiAdminFill } from 'react-icons/ri';
 import { VscAccount } from 'react-icons/vsc';
@@ -54,16 +53,10 @@ export default function UserDropDown() {
           >
             {isAuthenticated ? (
               <>
-                <DropDownLink
-                  handleClick={signOut}
-                  title='Cart'
-                  icon={<GiShoppingCart />}
-                  badge='0'
-                />
                 <li>
                   <a className='justify-between'>
                     Profile
-                    <span className='badge'>New</span>
+                    <span className='badge'>Coming soon</span>
                   </a>
                 </li>
                 <li>

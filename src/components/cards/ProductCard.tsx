@@ -1,4 +1,4 @@
-import router from 'next/router';
+import Link from 'next/link';
 
 import NextImage from '@/components/NextImage';
 
@@ -16,9 +16,9 @@ export default function ProductCard({
   id,
 }: IProductCardProps) {
   return (
-    <div
-      className='card-bordered card w-full cursor-pointer shadow-lg'
-      onClick={() => router.push(`/art/${id}`)}
+    <Link
+      className='card-bordered card w-full cursor-pointer shadow-sm hover:shadow-lg'
+      href={`/art/${id}`}
     >
       <div>
         <NextImage
@@ -37,6 +37,6 @@ export default function ProductCard({
           <div>{price.toLocaleString()}</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

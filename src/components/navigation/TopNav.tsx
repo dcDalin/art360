@@ -1,8 +1,8 @@
-import router from 'next/router';
-
 import AppLogo from '@/components/AppLogo';
 import CartCounter from '@/components/Cart/CartCounter';
 import ContainerLayout from '@/components/layout/ContainerLayout';
+import MenuList from '@/components/navigation/MenuList';
+import SlideOutMenu from '@/components/navigation/SlideOutMenu';
 import UserDropDown from '@/components/navigation/UserDropDown';
 
 export default function TopNav() {
@@ -15,29 +15,21 @@ export default function TopNav() {
               <AppLogo />
             </div>
             <div className='flex-none gap-0'>
-              <ul className='menu menu-horizontal p-0'>
-                <li onClick={() => router.push('/about')}>
-                  <a>About</a>
-                </li>
-                <li onClick={() => router.push('/artists')}>
-                  <a>Artists</a>
-                </li>
-                <li onClick={() => router.push('/art')}>
-                  <a>Art</a>
-                </li>
-                <li onClick={() => router.push('/blogs')}>
-                  <a>Blogs</a>
-                </li>
+              <ul className='menu menu-horizontal hidden p-0 md:flex'>
+                <MenuList />
               </ul>
 
-              <UserDropDown />
-              <ul className='menu menu-horizontal hidden p-0 md:flex'>
+              <div className='hidden md:flex'>
+                <UserDropDown />
+              </div>
+              <ul className='menu menu-horizontal p-0'>
                 <li>
                   <a>
                     <CartCounter />
                   </a>
                 </li>
               </ul>
+              <SlideOutMenu />
             </div>
           </div>
         </ContainerLayout>

@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { RiFilterLine } from 'react-icons/ri';
+import { useDispatch } from 'react-redux';
 
 import ArtistsSearch from '@/components/ArtistsSearch';
 import Layout from '@/components/layout/Layout';
 import ModalWrapper from '@/components/modals/ModalWrapper';
 import RenderArt from '@/components/RenderArt';
 
+import { setCategoryFilter } from '@/redux/searchArt/searchArtSlice';
+
 export default function ArtPage() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { category } = router.query;
+
   const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    if (category) {
+      dispatch(setCategoryFilter(category));
+    }
+  }, [category, dispatch]);
+
   return (
     <Layout templateTitle='Art'>
       <div className='flex space-x-0 md:space-x-8'>

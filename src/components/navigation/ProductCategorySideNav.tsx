@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
-import router from 'next/router';
+import Link from 'next/link';
 
 import { READ_CATEGORIES } from '@/graphql/categories/queries';
 
@@ -12,10 +12,9 @@ export default function ProductCategorySideNav() {
       {data && data.categories && data.categories.length ? (
         <ul className='menu w-56 bg-base-100'>
           {data.categories.map(({ id, name }: any) => {
-            // TODO: Fix router category
             return (
-              <li key={id} onClick={() => router.push(`art?category=${id}`)}>
-                <a>{name.toUpperCase()}</a>
+              <li key={id}>
+                <Link href={`art?category=${id}`}>{name.toUpperCase()}</Link>
               </li>
             );
           })}

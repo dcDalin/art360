@@ -7,7 +7,7 @@ export interface SearchArtSlice {
   minPrice: number | null;
   maxPrice: number | null;
   artist: string | null;
-  category: string | null;
+  category: string | null | string[];
 }
 
 const initialState: SearchArtSlice = {
@@ -36,7 +36,7 @@ export const searchArtSlice = createSlice({
     },
     setCategoryFilter: (
       state: SearchArtSlice,
-      action: PayloadAction<string | null>
+      action: PayloadAction<string | null | string[]>
     ) => {
       state.category = action.payload;
       state.filtersActive = true;

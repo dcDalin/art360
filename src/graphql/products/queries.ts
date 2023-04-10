@@ -75,8 +75,13 @@ export const FETCH_NEW_PRODUCTS = gql`
 `;
 
 export const FETCH_PRODUCTS_FILTER_SORT_PAGINATE = gql`
-  query MyQuery($condition: products_bool_exp!) {
-    products(order_by: { createdAt: desc }, where: $condition) {
+  query MyQuery($condition: products_bool_exp!, $limit: Int!, $offset: Int!) {
+    products(
+      order_by: { createdAt: desc }
+      where: $condition
+      limit: $limit
+      offset: $offset
+    ) {
       name
       price
       priceFrame
@@ -84,6 +89,11 @@ export const FETCH_PRODUCTS_FILTER_SORT_PAGINATE = gql`
       product_images(limit: 1) {
         id
         imageId
+      }
+    }
+    products_aggregate(where: $condition) {
+      aggregate {
+        count(columns: id)
       }
     }
   }
