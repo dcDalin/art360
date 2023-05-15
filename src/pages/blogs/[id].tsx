@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import DOMPurify from 'dompurify';
 import { useRouter } from 'next/router';
 
 import ProductsCarousel from '@/components/carousel/ProductsCarousel';
@@ -8,6 +7,7 @@ import SectionWrapper from '@/components/layout/SectionWrapper';
 import TableLoader from '@/components/loaders/TableLoader';
 
 import { READ_BLOGS_BY_PK } from '@/graphql/blogs/queries';
+import createMarkup from '@/utils/createMarkup';
 
 export default function BlogPage() {
   const router = useRouter();
@@ -20,12 +20,6 @@ export default function BlogPage() {
   if (error) return <p>Could not fetch blog</p>;
 
   if (loading) return <TableLoader width='full' />;
-
-  function createMarkup(html: string | Node) {
-    return {
-      __html: DOMPurify.sanitize(html),
-    };
-  }
 
   return (
     <Layout templateTitle='Blog'>

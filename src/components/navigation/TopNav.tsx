@@ -1,6 +1,7 @@
 import AppLogo from '@/components/AppLogo';
 import CartCounter from '@/components/Cart/CartCounter';
 import ContainerLayout from '@/components/layout/ContainerLayout';
+import AboutDropDown from '@/components/navigation/AboutDropDown';
 import MenuList from '@/components/navigation/MenuList';
 import SlideOutMenu from '@/components/navigation/SlideOutMenu';
 import UserDropDown from '@/components/navigation/UserDropDown';
@@ -16,6 +17,7 @@ export default function TopNav() {
             </div>
             <div className='flex-none gap-0'>
               <ul className='menu menu-horizontal hidden p-0 md:flex'>
+                <AboutDropDown />
                 <MenuList />
               </ul>
 

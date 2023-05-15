@@ -1,11 +1,13 @@
 import { AiFillDashboard } from 'react-icons/ai';
 import { BiCategoryAlt } from 'react-icons/bi';
 import { FaPaintBrush } from 'react-icons/fa';
+import { FcAbout } from 'react-icons/fc';
 import { FiSettings } from 'react-icons/fi';
 import { MdDraw, MdOutlineCategory } from 'react-icons/md';
 import { SiGithubsponsors, SiWritedotas } from 'react-icons/si';
 
 import {
+  ADMIN_ABOUT,
   ADMIN_ARTISTS,
   ADMIN_ARTISTS_GENRES,
   ADMIN_BLOGS,
@@ -23,6 +25,11 @@ export default function useAdminMenu() {
       title: 'Dashboard',
       icon: <AiFillDashboard />,
       path: ADMIN_DASHBOARD,
+    },
+    {
+      title: 'About',
+      icon: <FcAbout />,
+      path: ADMIN_ABOUT,
     },
     {
       title: 'Blogs',

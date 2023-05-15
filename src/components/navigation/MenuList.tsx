@@ -3,9 +3,6 @@ import router from 'next/router';
 export default function MenuList() {
   return (
     <>
-      <li onClick={() => router.push('/about')}>
-        <a>About</a>
-      </li>
       <li onClick={() => router.push('/artists')}>
         <a>Artists</a>
       </li>
