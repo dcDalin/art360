@@ -39,7 +39,7 @@ export default function Artist() {
           <div className='flex w-full items-center justify-center'>
             <NextImage
               className='flex items-center justify-center'
-              imgClassName='w-36 h-36 object-cover rounded-full'
+              imgClassName='w-36 h-36 object-contain rounded-full'
               src={imageUrl}
               alt='artist'
               width={1000}

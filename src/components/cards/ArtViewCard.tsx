@@ -19,7 +19,7 @@ export default function ArtView({ images }: IArtViewCardProps) {
           <NextImage
             src={activeImageUrl}
             className='w-full'
-            imgClassName='w-full h-96 rounded-sm object-cover'
+            imgClassName='w-full h-96 rounded-sm object-contain'
             useSkeleton
             alt='art'
             width={1000}
@@ -49,7 +49,7 @@ export default function ArtView({ images }: IArtViewCardProps) {
               >
                 <NextImage
                   src={imageUrl}
-                  imgClassName='w-16 h-16 rounded-sm object-cover'
+                  imgClassName='w-16 h-16 rounded-sm object-contain'
                   useSkeleton
                   alt='art'
                   width={100}

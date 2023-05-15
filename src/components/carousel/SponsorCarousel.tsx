@@ -42,7 +42,7 @@ export default function SponsorCarousel() {
                     <NextImage
                       src={imageUrl}
                       className='flex cursor-pointer items-center'
-                      imgClassName='w-24 h-24 rounded-sm object-cover'
+                      imgClassName='w-24 h-24 rounded-sm object-contain'
                       useSkeleton
                       alt='art'
                       width={96}

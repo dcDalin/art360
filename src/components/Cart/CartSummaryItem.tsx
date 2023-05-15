@@ -76,7 +76,7 @@ export default function CartSummaryItem({
     <div className='border-b border-gray-300 py-4'>
       <div className='flex items-center space-x-2 py-2 md:space-x-4'>
         <NextImage
-          imgClassName='w-24 h-24 object-cover'
+          imgClassName='w-24 h-24 object-contain'
           src={productImageUrl}
           alt='artist'
           width={96}

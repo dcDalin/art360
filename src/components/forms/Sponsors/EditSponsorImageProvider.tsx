@@ -97,7 +97,7 @@ export default function EditSponsorImageProvider({
             <div className='mask mask-square h-24 w-24'>
               <NextImage
                 src={imageUrl}
-                imgClassName='object-cover'
+                imgClassName='object-contain'
                 useSkeleton
                 alt='sponsor'
                 width={100}

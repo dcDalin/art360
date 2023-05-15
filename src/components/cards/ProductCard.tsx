@@ -18,12 +18,12 @@ export default function ProductCard({
   return (
     <Link
       className='card-bordered card w-full cursor-pointer shadow-sm hover:shadow-lg'
-      href={`/art/${id}`}
+      href={`/shop/${id}`}
     >
       <div>
         <NextImage
           className='flex w-full items-center justify-center rounded-t-xl'
-          imgClassName='w-full h-36 object-cover'
+          imgClassName='w-full h-36 object-contain'
           src={productImageUrl}
           alt='artist'
           width={1000}

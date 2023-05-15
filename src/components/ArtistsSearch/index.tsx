@@ -20,7 +20,7 @@ export default function ArtistsSearch() {
   useEffect(() => {
     router.push(
       {
-        pathname: `/art`,
+        pathname: `/shop`,
         query: {
           ...(searchString && { search: searchString }),
           ...(artist && { artist }),

@@ -17,7 +17,10 @@ export default function AboutDropDown() {
     <>
       {data && data.about && data.about.length ? (
         <div className='dropdown-end dropdown rounded-none'>
-          <label tabIndex={0} className='btn-ghost btn gap-2 rounded-none'>
+          <label
+            tabIndex={0}
+            className='btn-ghost btn gap-2 rounded-none text-base normal-case'
+          >
             About
             <HiOutlineChevronDown />
           </label>

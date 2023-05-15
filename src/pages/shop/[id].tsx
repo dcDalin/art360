@@ -88,7 +88,7 @@ export default function ArtPage() {
                     src={nhost.storage.getPublicUrl({
                       fileId: data.products_by_pk.artistByArtist.imageId,
                     })}
-                    imgClassName='w-12 h-12 rounded-full object-cover'
+                    imgClassName='w-12 h-12 rounded-full object-contain'
                     useSkeleton
                     alt='art'
                     width={48}

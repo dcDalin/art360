@@ -31,7 +31,7 @@ export default function FeaturedArtist() {
                     <NextImage
                       src={imageUrl}
                       className='flex items-center justify-center'
-                      imgClassName='object-cover w-32 h-32 mask mask-hexagon'
+                      imgClassName='object-contain w-32 h-32 mask mask-hexagon'
                       useSkeleton
                       alt='sponsor'
                       width={150}

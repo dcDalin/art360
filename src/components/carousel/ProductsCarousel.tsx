@@ -31,11 +31,11 @@ export default function ProductsCarousel() {
               <div
                 className='carousel-item cursor-pointer'
                 key={id}
-                onClick={() => router.push(`/art/${id}`)}
+                onClick={() => router.push(`/shop/${id}`)}
               >
                 <NextImage
                   className='flex w-60 items-center justify-center rounded-t-xl'
-                  imgClassName='w-full h-72 object-cover'
+                  imgClassName='w-full h-72 object-contain'
                   src={productImageUrl}
                   alt='artist'
                   width={1000}
