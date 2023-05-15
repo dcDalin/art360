@@ -43,7 +43,7 @@ export default function FeaturedArtist() {
                       <div className='card-actions'>
                         <button
                           className='btn-outline btn-primary btn-sm btn'
-                          onClick={() => router.push(`/artists/${id}`)}
+                          onClick={() => router.push(`/shop/artists/${id}`)}
                         >
                           See bio
                         </button>

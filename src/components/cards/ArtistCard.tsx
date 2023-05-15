@@ -37,7 +37,7 @@ export default function ArtistCard({
           <h2 className='card-title'>{`${firstName} ${lastName}`}</h2>
           <button
             className='btn-info btn-sm btn'
-            onClick={() => router.push(`/artists/${artistId}`)}
+            onClick={() => router.push(`/shop/artists/${artistId}`)}
           >
             View profile
           </button>

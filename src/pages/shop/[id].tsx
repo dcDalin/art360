@@ -80,7 +80,7 @@ export default function ArtPage() {
                   className='flex cursor-pointer items-center space-x-2 bg-base-100 py-4 px-4 pt-4'
                   onClick={() =>
                     router.push(
-                      `/artists/${data.products_by_pk.artistByArtist.id}`
+                      `/shop/artists/${data.products_by_pk.artistByArtist.id}`
                     )
                   }
                 >
