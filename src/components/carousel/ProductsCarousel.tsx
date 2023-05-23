@@ -6,45 +6,43 @@ import nhost from '@/lib/nhost';
 
 import NextImage from '@/components/NextImage';
 
-import { FETCH_NEW_PRODUCTS } from '@/graphql/products/queries';
+import { FETCH_NEW_GALLERY_ITEMS } from '@/graphql/gallery/queries';
 
 export default function ProductsCarousel() {
-  const { data } = useQuery(FETCH_NEW_PRODUCTS);
+  const { data } = useQuery(FETCH_NEW_GALLERY_ITEMS);
 
   return (
-    <div className='carousel-center carousel w-full space-x-4 rounded-sm bg-neutral p-4'>
-      {data && data.products && data.products.length
-        ? data.products.map(({ id, product_images }: any) => {
-            let productImageUrl = '';
+    <>
+      {data && data.gallery && data.gallery.length ? (
+        <div className='carousel-center carousel w-full space-x-4 rounded-sm bg-neutral p-4'>
+          {data && data.gallery && data.gallery.length
+            ? data.gallery.map(({ id, imageId }: any) => {
+                let productImageUrl = '';
 
-            if (
-              product_images &&
-              product_images.length &&
-              product_images[0].imageId
-            ) {
-              productImageUrl = nhost.storage.getPublicUrl({
-                fileId: product_images[0].imageId,
-              });
-            }
+                productImageUrl = nhost.storage.getPublicUrl({
+                  fileId: imageId,
+                });
 
-            return (
-              <div
-                className='carousel-item cursor-pointer'
-                key={id}
-                onClick={() => router.push(`/shop/${id}`)}
-              >
-                <NextImage
-                  className='flex w-60 items-center justify-center rounded-t-xl'
-                  imgClassName='w-full h-72 object-contain'
-                  src={productImageUrl}
-                  alt='artist'
-                  width={1000}
-                  height={1000}
-                />
-              </div>
-            );
-          })
-        : null}
-    </div>
+                return (
+                  <div
+                    className='carousel-item cursor-pointer'
+                    key={id}
+                    onClick={() => router.push(`/shop/${id}`)}
+                  >
+                    <NextImage
+                      className='flex w-60 items-center justify-center rounded-t-xl'
+                      imgClassName='w-full h-72 object-contain'
+                      src={productImageUrl}
+                      alt='artist'
+                      width={1000}
+                      height={1000}
+                    />
+                  </div>
+                );
+              })
+            : null}
+        </div>
+      ) : null}
+    </>
   );
 }

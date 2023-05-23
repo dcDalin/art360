@@ -25,3 +25,14 @@ export const READ_GALLERY_BY_PK = gql`
     }
   }
 `;
+
+export const FETCH_NEW_GALLERY_ITEMS = gql`
+  query fetchNewGallery {
+    gallery(order_by: { createdAt: desc }, limit: 10) {
+      description
+      id
+      imageId
+      title
+    }
+  }
+`;
