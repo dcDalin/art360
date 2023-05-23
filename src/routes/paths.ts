@@ -10,6 +10,7 @@ export const ADMIN_STORE_SUB_CATEGORIES = '/admin/store/sub-categories';
 export const ADMIN_STORE_PRODUCTS = '/admin/store/products';
 export const ADMIN_BLOGS = '/admin/blogs';
 export const ADMIN_ABOUT = '/admin/about';
+export const ADMIN_GALLERY = '/admin/gallery';
 
 export const AUTH_LOGIN = '/auth/login';
 export const AUTH_REGISTER = '/auth/register';

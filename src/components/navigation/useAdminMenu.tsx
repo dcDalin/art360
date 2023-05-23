@@ -3,6 +3,7 @@ import { BiCategoryAlt } from 'react-icons/bi';
 import { FaPaintBrush } from 'react-icons/fa';
 import { FcAbout } from 'react-icons/fc';
 import { FiSettings } from 'react-icons/fi';
+import { GrGallery } from 'react-icons/gr';
 import { MdDraw, MdOutlineCategory } from 'react-icons/md';
 import { SiGithubsponsors, SiWritedotas } from 'react-icons/si';
 
@@ -12,6 +13,7 @@ import {
   ADMIN_ARTISTS_GENRES,
   ADMIN_BLOGS,
   ADMIN_DASHBOARD,
+  ADMIN_GALLERY,
   ADMIN_SETTINGS,
   ADMIN_SPONSORS,
   ADMIN_STORE_CATEGORIES,
@@ -30,6 +32,11 @@ export default function useAdminMenu() {
       title: 'About',
       icon: <FcAbout />,
       path: ADMIN_ABOUT,
+    },
+    {
+      title: 'Gallery',
+      icon: <GrGallery />,
+      path: ADMIN_GALLERY,
     },
     {
       title: 'Blogs',
