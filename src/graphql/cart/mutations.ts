@@ -5,9 +5,15 @@ export const INSERT_CART_ONE = gql`
     $productId: uuid = ""
     $quantity: numeric = ""
     $userId: uuid = ""
+    $withFrame: Boolean = "false"
   ) {
     insert_cart_one(
-      object: { productId: $productId, quantity: $quantity, userId: $userId }
+      object: {
+        productId: $productId
+        quantity: $quantity
+        userId: $userId
+        withFrame: $withFrame
+      }
     ) {
       id
     }

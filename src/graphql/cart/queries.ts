@@ -19,6 +19,7 @@ export const PRODUCT_EXISTS_IN_CART = gql`
       where: { userId: { _eq: $_eq }, _and: { productId: { _eq: $_eq1 } } }
     ) {
       id
+      withFrame
     }
   }
 `;

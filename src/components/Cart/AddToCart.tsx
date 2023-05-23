@@ -17,9 +17,14 @@ import { AUTH_LOGIN } from '@/routes/paths';
 interface IAddToCartProps {
   productId: string;
   quantity: number;
+  withFrame: boolean;
 }
 
-export default function AddToCart({ quantity, productId }: IAddToCartProps) {
+export default function AddToCart({
+  quantity,
+  productId,
+  withFrame,
+}: IAddToCartProps) {
   const userId = useUserId();
   const accessToken = useAccessToken();
 
@@ -56,7 +61,7 @@ export default function AddToCart({ quantity, productId }: IAddToCartProps) {
             authorization: `Bearer ${accessToken}`,
           },
         },
-        variables: { productId, quantity, userId },
+        variables: { productId, quantity, userId, withFrame },
       });
       toast.success(`Art has been added to cart`, { id: 'art-success' });
     } catch (error) {
@@ -67,15 +72,17 @@ export default function AddToCart({ quantity, productId }: IAddToCartProps) {
   return (
     <>
       {isAuthenticated ? (
-        <button
-          className={`btn-primary btn-block btn ${
-            loading || isLoading ? 'loading' : ''
-          }`}
-          onClick={handleAddToCart}
-          disabled={loading || isLoading}
-        >
-          Add to cart
-        </button>
+        <div>
+          <button
+            className={`btn-primary btn-block btn ${
+              loading || isLoading ? 'loading' : ''
+            }`}
+            onClick={handleAddToCart}
+            disabled={loading || isLoading}
+          >
+            Add to cart
+          </button>
+        </div>
       ) : (
         <button className='link' onClick={() => router.push(AUTH_LOGIN)}>
           Login to add to cart

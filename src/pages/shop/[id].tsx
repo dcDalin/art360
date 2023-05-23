@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useAccessToken, useUserId } from '@nhost/nextjs';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { BsCart } from 'react-icons/bs';
 
 import nhost from '@/lib/nhost';
@@ -9,6 +10,7 @@ import ArtView from '@/components/cards/ArtViewCard';
 import ProductsCarousel from '@/components/carousel/ProductsCarousel';
 import AddToCart from '@/components/Cart/AddToCart';
 import RemoveFromCart from '@/components/Cart/RemoveFromCart';
+import WithFrameCheckBox from '@/components/forms/Elements/WithFrameCheckBox';
 import Layout from '@/components/layout/Layout';
 import SectionWrapper from '@/components/layout/SectionWrapper';
 import TableLoader from '@/components/loaders/TableLoader';
@@ -41,9 +43,59 @@ export default function ArtPage() {
     }
   );
 
+  const [productPrice, setProductPrice] = useState(0);
+  const [frameChecked, setFrameChecked] = useState(false);
+  const [disableCheck, setDisableCheck] = useState(false);
+
+  useEffect(() => {
+    if (data && data.products_by_pk) {
+      if (frameChecked) {
+        setProductPrice(data.products_by_pk.priceFrame);
+      } else {
+        setProductPrice(data.products_by_pk.price);
+      }
+    }
+  }, [data, frameChecked]);
+
+  useEffect(() => {
+    if (data && data.products_by_pk) {
+      // if withFrame in cart is true, set with frame price
+      if (
+        existsData &&
+        existsData.cart &&
+        existsData.cart.length &&
+        existsData.cart[0].withFrame
+      ) {
+        setFrameChecked(true);
+        setDisableCheck(true);
+        setProductPrice(data.products_by_pk.priceFrame);
+      }
+
+      if (
+        existsData &&
+        existsData.cart &&
+        existsData.cart.length &&
+        existsData.cart[0].withFrame === false
+      ) {
+        setDisableCheck(true);
+      }
+    }
+  }, [data, existsData]);
+
+  useEffect(() => {
+    if (existsData && existsData.cart && existsData.cart.length === 0) {
+      setDisableCheck(false);
+    }
+  }, [existsData]);
+
+  const handleWithFrameCheckBox = () => {
+    setFrameChecked(!frameChecked);
+  };
+
   if (error) return <p>Could not fetch art</p>;
 
   if (loading || existsLoading || !data) return <TableLoader width='full' />;
+
   return (
     <Layout templateTitle='Artists'>
       {loading ? (
@@ -108,7 +160,7 @@ export default function ArtPage() {
               <div className='flex flex-col md:hidden'>
                 <div className='flex items-center justify-between py-4'>
                   <h1 className='text-xl'>{data.products_by_pk.name}</h1>
-                  <div className='text-2xl font-bold text-primary'>{`Ksh. ${data.products_by_pk.price.toLocaleString()}`}</div>
+                  <div className='text-2xl font-bold text-primary'>{`Ksh. ${productPrice.toLocaleString()}`}</div>
                 </div>
                 <div className='flex items-center space-x-2 pb-4'>
                   <div className='badge badge-lg'>
@@ -124,8 +176,13 @@ export default function ArtPage() {
               {/* end mobile */}
 
               {/* desktop */}
-              <div className='hidden py-4 md:flex'>
-                <div className='text-4xl font-bold text-primary'>{`Ksh. ${data.products_by_pk.price.toLocaleString()}`}</div>
+              <div className='hidden flex-col py-4 md:flex'>
+                <div className='text-4xl font-bold text-primary'>{`Ksh. ${productPrice.toLocaleString()}`}</div>
+                <WithFrameCheckBox
+                  checked={frameChecked}
+                  handleClick={handleWithFrameCheckBox}
+                  disableCheck={disableCheck}
+                />
               </div>
               {/* end */}
               {existsData && existsData.cart && existsData.cart.length ? (
@@ -139,7 +196,11 @@ export default function ArtPage() {
                   <RemoveFromCart productId={data.products_by_pk.id} />
                 </div>
               ) : (
-                <AddToCart productId={data.products_by_pk.id} quantity={1} />
+                <AddToCart
+                  productId={data.products_by_pk.id}
+                  quantity={1}
+                  withFrame={frameChecked}
+                />
               )}
             </div>
           </div>
