@@ -33,8 +33,13 @@ export default function ArtPage() {
         </div>
         <div className='w-full'>
           <div className='flex w-full items-center justify-between pb-8'>
-            <h3 className='text-2xl md:text-3xl'>Discover Art and Artists</h3>
-            <ArtArtistsButton />
+            <div className='flex flex-col space-y-2'>
+              <h3 className='w-full text-2xl md:text-3xl'>
+                Discover Art and Artists
+              </h3>
+
+              <ArtArtistsButton />
+            </div>
             <div className='flex md:hidden'>
               <button
                 className='btn-outline btn-sm btn-circle btn'
