@@ -67,7 +67,7 @@ export default function ArtistsPage() {
           {loading ? (
             <TableLoader width='full' />
           ) : (
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-4'>
+            <div className='grid grid-cols-2 gap-0 md:grid-cols-4 md:gap-4'>
               {data && data.artists && data.artists.length
                 ? data.artists.map(
                     ({
