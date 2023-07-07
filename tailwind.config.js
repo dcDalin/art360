@@ -9,6 +9,9 @@ module.exports = {
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
       },
+      colors: {
+        'art-brown': '#631217',
+      },
     },
   },
   plugins: [require('daisyui'), require('@tailwindcss/forms')],

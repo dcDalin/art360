@@ -6,9 +6,7 @@ import Layout from '@/components/layout/Layout';
 export default function HomePage() {
   return (
     <Layout templateTitle='Home'>
-      <div className='flex space-x-0 pb-24 md:space-x-8'>
-        <ProductsCarousel />
-      </div>
+      <ProductsCarousel />
       <FeaturedArtist />
       <SponsorCarousel />
     </Layout>

@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 
 // global styles
 import '@/styles/globals.css';
+// slick
+import '@/styles/slick.css';
 
 import nhost from '@/lib/nhost';
 

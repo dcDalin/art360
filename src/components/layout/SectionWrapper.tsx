@@ -7,6 +7,7 @@ interface ISectionWrapperProps {
   children: React.ReactNode;
   backButton?: boolean;
   path?: string;
+  textColor?: string;
 }
 
 export default function SectionWrapper({
@@ -15,10 +16,11 @@ export default function SectionWrapper({
   children,
   backButton,
   path = '/',
+  textColor,
 }: ISectionWrapperProps) {
   return (
     <div className='py-4 md:py-10'>
-      <div className='flex w-full flex-col items-center'>
+      <div className='flex w-full flex-col items-center pb-10'>
         <div className='grid w-full grid-cols-3 items-center'>
           {backButton ? (
             <button
@@ -31,13 +33,16 @@ export default function SectionWrapper({
             <div></div>
           )}
           {heading ? (
-            <h1 className='text-center text-xl font-bold md:text-5xl'>
+            <h1
+              className={`text-center text-xl font-bold md:text-5xl ${textColor}`}
+            >
               {heading}
             </h1>
           ) : null}
         </div>
-        {description ? <p className='py-2'>{description}</p> : null}
-        <div className='divider mt-0 py-0'></div>
+        {description ? (
+          <p className={`py-2 ${textColor}`}>{description}</p>
+        ) : null}
       </div>
 
       <div>{children}</div>
