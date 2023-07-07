@@ -21,7 +21,7 @@ export default function SponsorCarousel() {
   return (
     <>
       {data && data.sponsors && data.sponsors.length ? (
-        <SectionWrapper heading='Sponsors'>
+        <SectionWrapper heading='Our Sponsors'>
           <CarouselProvider
             naturalSlideWidth={100}
             naturalSlideHeight={125}

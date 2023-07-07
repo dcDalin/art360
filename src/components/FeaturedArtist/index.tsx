@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from '@apollo/client';
+import Link from 'next/link';
 import router from 'next/router';
 
 import nhost from '@/lib/nhost';
@@ -15,7 +16,7 @@ export default function FeaturedArtist() {
   if (loading) return <p>Loading...</p>;
   return (
     <SectionWrapper
-      heading='Featured artists'
+      heading='Meet the artists'
       description='Check out our amazing artists'
     >
       <>
@@ -63,7 +64,9 @@ export default function FeaturedArtist() {
               )}
             </div>
             <div className='flex items-center justify-center'>
-              <a className='link'>See all artists</a>
+              <Link className='link' href='/shop/artists'>
+                See all artists
+              </Link>
             </div>
           </div>
         ) : null}

@@ -62,7 +62,7 @@ export const FETCH_PRODUCTS_BY_PK = gql`
 
 export const FETCH_NEW_PRODUCTS = gql`
   query fetchNewProducts {
-    products(order_by: { createdAt: desc }, limit: 10) {
+    products(order_by: { createdAt: desc }, limit: 15) {
       id
       name
       price
