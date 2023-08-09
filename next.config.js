@@ -14,6 +14,7 @@ const nextConfig = {
       's.gravatar.com',
       'lh3.googleusercontent.com',
       'hqgvidhnlbykeqlgeglh.storage.eu-central-1.nhost.run',
+      'images.ctfassets.net',
     ],
   },
 

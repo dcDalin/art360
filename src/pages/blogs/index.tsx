@@ -1,34 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useQuery } from '@apollo/client';
-import router from 'next/router';
 
+import { useRouter } from 'next/router';
+
+import useBlogs from '@/hooks/useBlogs';
+
+import BlogCard from '@/components/cards/BlogCard';
 import Layout from '@/components/layout/Layout';
 import TableLoader from '@/components/loaders/TableLoader';
 
-import { READ_BLOGS } from '@/graphql/blogs/queries';
-
 export default function ArtPage() {
-  const { data, loading, error } = useQuery(READ_BLOGS);
+  const { data, loading, error } = useBlogs();
+
+  const router = useRouter();
 
   if (loading) return <TableLoader width='full' />;
 
   if (error) return <p>Coule not fetch blogs</p>;
   return (
-    <Layout templateTitle='Blogs'>
+    <Layout templateTitle='Blogs' contained>
       <div className=''>
-        {data && data.blogs && data.blogs.length ? (
-          data.blogs.map(({ title, excerpt, id }: any) => {
-            return (
-              <div
-                className='my-2 cursor-pointer rounded-sm bg-base-100 p-6 hover:shadow-lg'
-                key={id}
-                onClick={() => router.push(`/blogs/${id}`)}
-              >
-                <h1 className='text-4xl font-bold'>{title}</h1>
-                <p className='py-2'>{excerpt}</p>
-              </div>
-            );
-          })
+        {data && data.length ? (
+          <div className='flex space-x-4'>
+            {data.map(
+              ({
+                author,
+                datePosted,
+                imageUrl: {
+                  fields: {
+                    file: { url },
+                  },
+                },
+                slug,
+                title,
+              }: any) => {
+                return (
+                  <BlogCard
+                    key={slug}
+                    imageUrl={`https:${url}`}
+                    title={title}
+                    author={author}
+                    datePublished={datePosted}
+                    readTime='2 minutes read'
+                    handleNavigate={() => router.push(`/blogs/${slug}`)}
+                  />
+                );
+              }
+            )}
+          </div>
         ) : (
           <p>No blogs found</p>
         )}
